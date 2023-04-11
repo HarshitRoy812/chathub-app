@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+.nav_bar {
+    display : flex;
+    flex-direction : row;
+    width : 100%;
+    height : 10vh;
+    align-items: center;
+}
+
+.logo {
+    width : 140px;
+    height : 23px;
+    cursor: pointer;
+    margin-left : 30px;
+}
+
+.nav_links {
+    display : flex;
+    width : 400px;
+    justify-content: space-around;
+    flex-direction: row;
+    list-style : none;
+    color : #ffffff;
+    margin-left: auto;
+    margin-right : 50px;
+    font-family: 'Work Sans', sans-serif;   
+}
+
+.nav_link {
+    cursor : pointer;
+    letter-spacing : -0.3px;
+    transition : 0.3s ease-in-out;
+    color : #ffffff;
+    text-decoration: none;
+}
+.nav_link:hover {
+    transform : translateY(-6%);
+}
+.nav_link::after {
+    content : '';
+    display : block;
+    width : 0%;
+    margin : auto;
+    height : 2px;
+    margin-top : 3px;
+    background-color : #ffffff;
+    transition : 0.2s;
+}
+.nav_link:hover::after {
+    width : 50%;
+}
+.nav_link:active {
+    transform : translateY(6%);
+}
+
+
+.main {
+    display : flex;
+    width : 96vw;
+    height : 75vh;
+    margin-top : 50px;
+    margin-left : 50px;
+    flex-direction: row;
+}
+.main_heading {
+    color : #fcbf49;
+    font-family: 'Work Sans', sans-serif;
+    font-size : 60px;
+    letter-spacing : -1px;
+    font-weight: 700;
+}
+.main_heading span {
+    color : #9381ff;
+}
+.main_para {
+    color : #ffffff;
+    font-family: 'Work Sans', sans-serif;
+    padding : 5px;
+    margin-top : 10px;
+    line-height : 1.5rem;
+    width : 48vw;
+}
+
+
+.main_about_btn {
+    width : 350px;
+    height : 35px;
+    background-color : #ffb703;
+    color : #000000;
+    font-family: 'Work Sans', sans-serif;
+    outline : none;
+    border : none;
+    margin-top : 30px;
+    cursor : pointer;
+    font-weight: 500;
+    border-radius: 3px;
+    transition : 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+.main_about_btn:hover {
+    box-shadow : 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.nav_link_btn {
+    text-decoration: none;
+    color : #000000;
+}

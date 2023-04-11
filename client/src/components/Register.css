@@ -1,0 +1,42 @@
+#register_form {
+    width : 40vw;
+}
+.form_row {
+    display : flex;
+    flex-direction: row;
+}
+.file_input {
+    display : none;
+}
+.file_label {
+    font-size : 17px;
+    font-family : 'Work Sans',sans-serif;
+    background : #fcbf49;
+    padding : 7px;
+    border-radius: 3px;
+    box-shadow : 0 3px 5px rgba(0,0,0,0.5);
+    cursor : pointer;
+    transition : 0.3s ease-in-out;
+}
+.file_label:hover {
+    background : #f9bc43;
+}
+
+.register_submit_btn {
+    margin-top : 25px;
+    margin-left : 8px;
+}
+
+.register_navlink {
+    position : relative;
+    top : 60px;
+    color : #000000;
+}
+
+#error_msg {
+    color : #ef233c;
+    font-family : 'Work Sans',sans-serif;
+    margin-top : 36px;
+    margin-left : 30px;
+    font-size : 17px;
+}
