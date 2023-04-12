@@ -1,4 +1,4 @@
-.login_form,.registration_form {
+.login_form,.registration_form,.password_reset_form {
     display : flex;
     flex-direction: column;
     width : 30vw;

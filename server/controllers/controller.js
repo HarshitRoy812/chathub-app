@@ -93,8 +93,37 @@ var pic;
         res.status(201).json({data : user});
     }
 }
+const verifyEmail = async (req,res) => {
+
+    const emailExists = await User.findOne({email : req.body.email});
+
+    if (!emailExists){
+        return res.status(404).json({msg : 'Email address not found!'});
+    }
+    return res.status(200).json({msg : 'OK'});
+}
+
+const changePassword = async (req,res) => {
+
+    var data = {};
+
+    const encryptedPassword = await encryptPassword(req.body.password);
+
+    data.password = encryptedPassword;
+
+    const response = await User.findOneAndUpdate({email : req.body.email},data)
+
+    if (!response){
+        return res.status(403).json({msg : 'Could not change password'})
+    }
+
+    return res.status(203).json({msg : 'Your password has been changed successfully !'});
+
+}
 
 module.exports = {
     loginDetails,
-    registrationDetails
+    registrationDetails,
+    verifyEmail,
+    changePassword
 }   

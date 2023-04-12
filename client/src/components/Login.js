@@ -61,7 +61,7 @@ const Login = () => {
 
                 <div className = 'form_group password_reset'>
                     <p> Forgot Password ? </p>
-                    <a href = '#register'> Click here to reset your password </a>
+                    <NavLink to = '/resetpassword'> Click here to reset your password </NavLink>
                 </div>
 
                 <div className = 'form_group password_reset'>
