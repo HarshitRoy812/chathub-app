@@ -1,0 +1,111 @@
+.friends_component {
+    width : 450px;
+    height : 500px;
+    padding : 20px;
+    margin-right: 30px;
+    margin-left: auto;
+}
+
+.friends_component label {
+    font-size : 20px;
+}
+.friends_list_form {
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.friends_btn {
+    padding : 7px;
+    width : 120px;
+    height : 40px;
+    background : #80ed99;
+    font-family : 'Work Sans',sans-serif;
+    outline : none;
+    border : none;
+    margin-top : 7px;
+    border-radius: 3px;
+    cursor : pointer;
+    font-size: 15px;
+}
+
+.friends_list_form input {
+    border-radius: 3px;
+    height : 40px;
+}
+.friends_list {
+    width : 100%;
+    height : 200px;
+    margin-top : 30px;
+    display : flex;
+    flex-direction: column;
+    background : #ffc300;
+    border-radius: 3px;
+}
+.friends_heading {
+    font-size: 17px;
+    font-family: 'Work Sans',sans-serif;
+    margin : auto;
+    font-weight: 400;
+}
+.searched_friend {
+    display : flex;
+    flex-direction: row;
+    margin : 10px;
+    margin-top : 15px;
+    width : 90%;
+    height : 60px;
+    background : #fff;
+    border-radius: 3px;
+}
+.searched_friend label {
+    align-self: center;
+    margin-left : 30px;
+    font-size: 17px;
+    font-weight: 500;
+    position: relative;
+    right : 15px;
+}
+.add_friend_btn {
+    width : 100px;
+    height : 35px;
+    outline : none;
+    border : none;
+    background : #ffca3a;
+    font-family: 'Work Sans',sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 3px;
+    margin-left: auto;
+    margin-right: 15px;
+    align-self: center;
+    cursor: pointer;
+}
+
+#friend_img {
+    border-radius: 50%;
+    width : 50px;
+    height : 50px;  
+    margin-left: 15px;
+    align-self: center;
+}
+
+.friend_div {
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom : 1px solid black;
+    padding : 15px;
+}
+
+.friend_div img{
+    width : 50px;
+    height : 50px;
+    border-radius: 50%;   
+}
+.friend_div h1 {
+    font-size : 17px;
+    font-weight: 400;
+    font-family : 'Work Sans',sans-serif;
+    margin-left : 15px;
+}

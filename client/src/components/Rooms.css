@@ -1,0 +1,40 @@
+#rooms {
+    display : flex;
+    flex-direction : row;
+    width : 50vw;
+    height : 50vh;
+    align-self: center;
+    margin-left : 100px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.room {
+    width : 260px;
+    height : 120px;
+    background-color: #7209b7;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family : 'Work Sans',sans-serif;
+    cursor: pointer;
+    border-radius: 7px;
+    box-shadow : 0 6px 6px #001427;
+    transition : 0.3s ease-in-out;
+}
+.room:hover {
+    background-color: #7c0bc8;
+    transform : translateY(-3%);
+}
+.room h1 {
+    color : #fff;
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: -0.6px;
+}
+
+.room_navlink {
+    text-decoration: none; 
+    padding : 50px;  
+}

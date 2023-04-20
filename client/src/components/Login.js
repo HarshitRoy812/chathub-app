@@ -2,13 +2,18 @@ import React, {useEffect,useState} from 'react';
 import './Login.css';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+
+
+    const navigate = useNavigate();
 
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     useEffect(() => {
+        localStorage.removeItem('token');
         document.getElementById('progress_bar').style.animation = 'animate 1s';
     },[]);
 
@@ -30,10 +35,16 @@ const Login = () => {
         }
         catch (error){
             errorMsg.innerText = error.response.data.msg;
+            return;
         }
 
         setEmail('');
         setPassword('');
+
+        navigate('/dashboard');
+        
+        
+    
     }
 
     

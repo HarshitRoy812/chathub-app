@@ -5,6 +5,8 @@ import Login from './components/Login';
 import Register from './components/Register';
 import About from './components/About';
 import PasswordReset from './components/PasswordReset';
+import Dashboard from './components/Dashboard';
+import Chat from './components/Chat';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 
 const App = () => {
@@ -19,10 +21,9 @@ const App = () => {
                     <Route path = '/register' element = {<Register />} />
                     <Route path = '/resetpassword' element = {<PasswordReset />} />
                 </Route>  
-                <Route path = '/about' element = {<About />}>
-                    
-                </Route>
-
+                <Route path = '/about' element = {<About />} />
+                <Route path = '/dashboard' element = {<Dashboard />} />
+                <Route path = '/chat' element = {<Chat />} />
             </Routes>
         </BrowserRouter>
 

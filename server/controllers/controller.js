@@ -69,7 +69,7 @@ const registrationDetails = async (req,res) => {
         password : validatedResult.password,   
     }
 
-var pic;
+    var pic;
     if (isPicPresent){
         pic = {
             data : fs.readFileSync(path.join(__dirname,'..','/uploads',req.file.filename)),
@@ -78,6 +78,12 @@ var pic;
     }
 
     data.profilePic = pic;
+    
+    const newDate = new Date();
+    var date = newDate.toDateString();
+    date = date.slice(4);
+
+    data.joinedAt = date;
 
     const userExists = await User.findOne({email : data.email});
 
@@ -121,9 +127,88 @@ const changePassword = async (req,res) => {
 
 }
 
+
+const dashboardDetails = async (req,res) => {
+
+    const {userID,userName} = req.user;
+
+    try {
+        const data = await User.findOne({_id : userID});
+
+        return res.status(200).json({msg : data});
+    }
+    catch (error){
+        return res.status(404).json({msg : 'No user found'});
+    }
+}
+
+const searchFriend = async (req,res) => {
+
+
+    const {name} = req.body;
+
+    const data = await User.findOne({name : name});
+
+    if (data){
+        return res.status(200).json({msg : data});
+    }
+
+    return res.status(404).json({msg : `No user found with name ${name}`})
+}
+
+const addFriend = async (req,res) => {
+    
+    const {friendData} = req.body;
+
+    const userID = req.user.userID;
+
+    
+    const updatedData = await User.findOneAndUpdate({_id : userID},{friends : [...friends,friendData]});
+
+    if (updatedData){
+        return res.status(201).json({msg : 'Friend added'});
+    }
+
+    return res.status(403).json({msg : 'Friend not added'});
+}   
+
+
+const getFriends = async (req,res) => {
+
+    const userID = req.user.userID;
+
+    const data = await User.findOne({_id : userID});
+
+    if (data){
+        return res.status(200).json({msg : data});
+    }
+    
+    return res.status(404).json({msg : 'No data found'});
+
+}
+
+
+const getUser = async (req,res) => {
+
+    const {userID} = req.body;
+
+    const data = await User.findOne({_id : userID});
+
+    if (data){
+        return res.status(200).json({msg : data});
+    }
+    return res.status(404).json({msg : 'No data found'});
+
+}
+
 module.exports = {
     loginDetails,
     registrationDetails,
     verifyEmail,
-    changePassword
+    changePassword,
+    dashboardDetails,
+    searchFriend,
+    addFriend,
+    getFriends,
+    getUser
 }   
