@@ -2,21 +2,21 @@ import React from 'react';
 import './Rooms.css';
 import {NavLink} from 'react-router-dom';
 
-const Rooms = () => {
+const Rooms = (props) => {
 
     return (
         <div id = 'rooms'>
 
             <div className = 'room'>
-                <NavLink to = '/chat?room=roomone' className = 'room_navlink'> <h1> Join Room 1 </h1> </NavLink>
+                <NavLink to = {`/chat?room=Alpha&name=${props.name}&img=${props.img}`} className = 'room_navlink'> <h1> Join Room Alpha</h1> </NavLink>
             </div>
 
             <div className = 'room'>
-                <NavLink to = '/chat?room=roomTwo' className = 'room_navlink'> <h1> Join Room 2 </h1> </NavLink>
+                <NavLink to = {`/chat?room=Beta&name=${props.name}&img=${props.img}`} className = 'room_navlink'> <h1> Join Room Beta </h1> </NavLink>
             </div>
 
             <div className = 'room'>
-                <NavLink to = '/chat?room=roomThree' className = 'room_navlink'> <h1> Join Room 3 </h1> </NavLink>
+                <NavLink to = {`/chat?room=Alpha&name=${props.name}&img=${props.img}`} className = 'room_navlink'> <h1> Join Room 3 </h1> </NavLink>
             </div>
 
         </div>

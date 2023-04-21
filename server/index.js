@@ -1,10 +1,15 @@
 const express = require('express');
 const {createServer} = require('http');
 const {Server} = require('socket.io');
+const {addUser,getUser} = require('./users/users');
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer,{
+    cors : {
+        origin : '*'
+    }
+});
 
 const port = 3001;
 
@@ -27,6 +32,29 @@ app.use(express.json());
 
 app.use(cors());
 app.use('/',routes);
+
+
+
+
+io.on('connection',(socket) => {
+    
+    socket.on('join_room',(room) => {
+        socket.join(room);
+    })
+
+    socket.on('user_joined',(msg) => {
+        addUser(socket.id,msg);
+        socket.to(msg[2]).emit('user_joined',msg[0] + " has joined the chat");
+    })
+
+    socket.on('send_message',(msg) => {
+        const user = getUser(socket.id);
+        socket.to(user[2]).emit('recieve_message',msg,user);
+    })
+
+    
+
+})
 
 
 const startApp = async () => {

@@ -1,0 +1,141 @@
+#chat_main {
+    display : flex;
+    height : 100vh;
+    width : 100vw;
+    flex-direction: column;
+}
+#chat_header {
+    display: flex;
+    width : 100%;
+    min-height : 100px;
+}
+#chat_header h1 {
+    color : #fff;
+    font-family : 'Work Sans',sans-serif;
+    font-weight: 300;
+    font-size : 17px;
+    letter-spacing: -0.3px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+#leaveroom_btn {
+    height : 50px;
+    width : 120px;
+    background-color: #c1121f;
+    padding : 5px;
+    font-family: 'Work Sans',sans-serif;
+    cursor: pointer;
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: 50px;
+    align-self: center;
+    font-size: 12px;
+    border : none;
+    outline : none;
+    border-radius: 3px;
+    box-shadow : 0 3px 5px rgba(0,0,0,0.3);
+    letter-spacing: -0.3px;
+    transition : 0.3s ease-in-out;
+}
+#leaveroom_btn:hover {
+    background-color: #ca101c;
+}
+#leaveroom_btn i {
+    margin-left: 3px;
+}
+.leaveroom_link {
+    text-decoration: none;
+    color : #fff;
+}
+#chat_UI {
+    display : flex;
+    flex-direction : column;
+    min-height : 50vh;
+    width : 50vw;
+    align-self: center;
+    margin : auto;
+}
+#chat_container {
+    display : flex;
+    flex-direction: column;
+    background-color: #fefae0;
+    height : 50vh;
+    width : 50vw;
+    border-radius: 3px;
+    box-shadow : 0 3px 5px #3c096c;
+    overflow-y : scroll;
+}
+#chat_utils {
+    display: flex;
+    width : 50vw;
+    height : 40px;
+    flex-direction: row;
+    margin-top: 15px;
+}
+
+
+.chat_message {
+    flex : 0.96;
+    height : 100%;
+    background : #f1faee;
+    border : none;
+    outline : none;
+    border-radius: 3px;
+    text-indent: 5px;
+    font-family: 'Work Sans',sans-serif;
+    font-size: 15px;
+    padding : 6px;
+    font-weight: 400;
+}
+.send_message_btn {
+    margin-left: auto;
+    width : 120px;
+    height : 100%;
+    border : none;
+    outline : none;
+    border-radius: 3px;
+    font-family: 'Work Sans',sans-serif;
+    background-color: #fca311;
+    font-weight: 400;
+    text-transform: uppercase;
+    padding : 7px;
+    font-size: 12px;
+    cursor: pointer;
+    transition : 0.3s ease-in-out;
+}
+.send_message_btn:hover {
+    background-color: #fdb33b
+}
+.send_message_btn:active {
+    transform : scale(0.99,0.99);
+}
+.welcome_message {
+    width : 240px;
+    height : 50px;
+    background : #38b000;
+    display : flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Work Sans',sans-serif;
+    border-radius: 30px;
+    align-self: center;
+    margin-top : 15px;
+}
+.welcome_message p {
+    color : #fff;
+    font-size: 13.2px;
+}
+.textMessage {
+    display : flex;
+    flex-direction: row;
+    min-height : 30px;
+}
+.textMessage p {
+    display : inline;
+    background-color: #7b2cbf;
+    font-family: 'Work Sans',sans-serif;
+    color : #fff;
+    padding : 7px;
+    align-self: center;
+    border-radius: 15px;
+}
