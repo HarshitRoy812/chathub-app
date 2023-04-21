@@ -6,8 +6,12 @@ const addUser = (socketID,userDetails) => {
 const getUser = (socketID) => {
     return users[socketID];
 }
+const deleteUser = (socketID) => {
+    delete users[socketID];
+}
 
 module.exports = {
     addUser,
-    getUser
+    getUser,
+    deleteUser
 }

@@ -73,7 +73,7 @@ const Dashboard = () => {
                 componentLoaded
                 &&
                 <>
-                    <Rooms name = {data.name} img = {data.profilePic.data} />
+                    <Rooms name = {data.name}/>
 
                     <FriendsList />
                 </>

@@ -19,6 +19,7 @@
     margin-top: 30px;
 }
 #leaveroom_btn {
+    color : #fff;
     height : 50px;
     width : 120px;
     background-color: #c1121f;
@@ -63,7 +64,9 @@
     width : 50vw;
     border-radius: 3px;
     box-shadow : 0 3px 5px #3c096c;
-    overflow-y : scroll;
+    overflow-y : auto;
+    padding : 5px;
+    padding-bottom : 15px;
 }
 #chat_utils {
     display: flex;
@@ -110,32 +113,133 @@
     transform : scale(0.99,0.99);
 }
 .welcome_message {
-    width : 240px;
-    height : 50px;
+    min-width : 230px;
+    min-height : 40px;
     background : #38b000;
     display : flex;
     align-items: center;
     justify-content: center;
     font-family: 'Work Sans',sans-serif;
-    border-radius: 30px;
+    border-radius: 12px;
     align-self: center;
-    margin-top : 15px;
+    margin : 30px;
 }
 .welcome_message p {
     color : #fff;
     font-size: 13.2px;
 }
-.textMessage {
+.textMessage,.textMessageSelf {
     display : flex;
-    flex-direction: row;
-    min-height : 30px;
+    flex-direction: column;
+    min-height : 50px;
+    min-width : 100px;
+    margin : 20px;
+    animation-name : slideUp;
+    animation-duration : 0.2s;
 }
-.textMessage p {
-    display : inline;
+.textMessage {
+    align-self: flex-start;
+}
+.img,.img_alt{
+    height : 30px;
+    width : 30px;
+    border-radius: 50%;
+    align-self: center;
+}
+.img {
+    margin-left: 7px;
+}
+.img_alt {
+    margin-right : 7px;
+}
+.textMessageSelf {
+    align-self: flex-end;
+}
+@keyframes slideUp {
+    from {
+        transform : translateY(33%);
+    }
+    to {
+        transform : translateY(0%);
+    }
+}
+.message,.textMessageSelf p:nth-child(2) {
     background-color: #7b2cbf;
     font-family: 'Work Sans',sans-serif;
     color : #fff;
-    padding : 7px;
-    align-self: center;
+    padding : 10px;
+    text-align: center;
+    flex : 1;
     border-radius: 15px;
+    font-size: 13.2px;
+    box-shadow : 0 2px 3px rgba(0,0,0,0.3);
+}
+
+.disconnected_message {
+    min-width : 200px;
+    min-height : 40px;
+    display : flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Work Sans',sans-serif;
+    border-radius: 12px;
+    align-self: center;
+    margin-top : 20px;
+    background-color: #fb5607;
+}
+.disconnected_message p {
+    color : #fff;
+    font-size: 13.2px;
+}
+
+.message_username_self,.message_username {
+    color : #7f8691;
+    font-family: 'Work Sans',sans-serif;
+    font-size: 14.1px;
+    margin-top : 3px;
+    margin-left: 3px;
+}
+.message_username_self {
+    align-self: flex-end;
+}
+.message_username {
+    align-self: flex-start;
+    font-size: 13px;
+}
+
+
+
+.time,.time_self {
+    color : #7f8691;
+    align-self: center;
+    font-size: 12px;
+}
+.time {
+    margin-left: 20px;
+}
+.time_self {
+    margin-right: 20px;
+}
+
+.first_div_self{
+    display : flex;
+    flex-direction: row;
+    width : 100%;
+}
+.second_div_self {
+    display : flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width : 100%;
+}
+.second_div {
+    display : flex;
+    flex-direction: row;
+    width : 100%;
+    justify-content: flex-start;
+}
+
+.welcome_message,.disconnected_message {
+    animation-name : slideUp;
+    animation-duration: 0.3s;
 }

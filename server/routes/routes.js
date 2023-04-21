@@ -12,7 +12,8 @@ const {
     searchFriend,
     addFriend,
     getFriends,
-    getUser
+    getUser,
+    getUserByName
 } = require('../controllers/controller');
 
 const authorize = require('../authorize/authorize');
@@ -25,5 +26,6 @@ router.route('/dashboard').get(authorize,dashboardDetails);
 router.route('/searchFriend').post(authorize,searchFriend);
 router.route('/friend').put(authorize,addFriend).get(authorize,getFriends);
 router.route('/getUser').post(authorize,getUser);
+router.route('/getUserByName').post(authorize,getUserByName);
 
 module.exports = router;

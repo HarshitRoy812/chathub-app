@@ -8,15 +8,15 @@ const Rooms = (props) => {
         <div id = 'rooms'>
 
             <div className = 'room'>
-                <NavLink to = {`/chat?room=Alpha&name=${props.name}&img=${props.img}`} className = 'room_navlink'> <h1> Join Room Alpha</h1> </NavLink>
+                <NavLink to = {`/chat?room=Alpha&name=${props.name}`} className = 'room_navlink'> <h1> Join Room Alpha</h1> </NavLink>
             </div>
 
             <div className = 'room'>
-                <NavLink to = {`/chat?room=Beta&name=${props.name}&img=${props.img}`} className = 'room_navlink'> <h1> Join Room Beta </h1> </NavLink>
+                <NavLink to = {`/chat?room=Beta&name=${props.name}`} className = 'room_navlink'> <h1> Join Room Beta </h1> </NavLink>
             </div>
 
             <div className = 'room'>
-                <NavLink to = {`/chat?room=Alpha&name=${props.name}&img=${props.img}`} className = 'room_navlink'> <h1> Join Room 3 </h1> </NavLink>
+                <NavLink to = {`/chat?room=Alpha&name=${props.name}`} className = 'room_navlink'> <h1> Join Room 3 </h1> </NavLink>
             </div>
 
         </div>

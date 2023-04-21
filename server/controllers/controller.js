@@ -198,9 +198,18 @@ const getUser = async (req,res) => {
         return res.status(200).json({msg : data});
     }
     return res.status(404).json({msg : 'No data found'});
-
 }
 
+const getUserByName = async (req,res) => {
+    const {userName} = req.body;
+
+    const data = await User.findOne({name : userName});
+
+    if (data){
+        return res.status(200).json({msg : data});
+    }
+    return res.status(404).json({msg : 'No data found'});
+}
 module.exports = {
     loginDetails,
     registrationDetails,
@@ -210,5 +219,6 @@ module.exports = {
     searchFriend,
     addFriend,
     getFriends,
-    getUser
+    getUser,
+    getUserByName
 }   

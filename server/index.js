@@ -1,7 +1,7 @@
 const express = require('express');
 const {createServer} = require('http');
 const {Server} = require('socket.io');
-const {addUser,getUser} = require('./users/users');
+const {addUser,getUser,deleteUser} = require('./users/users');
 
 const app = express();
 const httpServer = createServer(app);
@@ -44,15 +44,28 @@ io.on('connection',(socket) => {
 
     socket.on('user_joined',(msg) => {
         addUser(socket.id,msg);
-        socket.to(msg[2]).emit('user_joined',msg[0] + " has joined the chat");
+        socket.to(msg[1]).emit('user_joined',msg[0] + " has joined the chat");
     })
 
     socket.on('send_message',(msg) => {
+
+        const date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        let time = hours + ":" + minutes;
+
         const user = getUser(socket.id);
-        socket.to(user[2]).emit('recieve_message',msg,user);
+        socket.to(user[1]).emit('receive_message',msg,user,time);
     })
 
-    
+    socket.on('clientDisconnect',() => {
+        const user = getUser(socket.id);
+        deleteUser(socket.id);
+        socket.to(user[1]).emit('disconnected',user);
+        socket.disconnect(true);
+    })
+
 
 })
 
