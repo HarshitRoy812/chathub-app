@@ -28,6 +28,7 @@ const Chat = () => {
         socket = io(`http://localhost:${ENDPOINT}`);
 
 
+
         setName(searchParams.get('name'));
         setRoom(searchParams.get('room'));
 

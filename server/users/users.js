@@ -10,8 +10,24 @@ const deleteUser = (socketID) => {
     delete users[socketID];
 }
 
+const getUserCount = (room) => {
+
+    let userCount = 0;
+
+    Object.keys(users).forEach((ele) => {
+        if (users[ele][1] == room)
+        {
+            userCount++;
+        }
+    })
+
+    return userCount;
+}
+
+
 module.exports = {
     addUser,
     getUser,
-    deleteUser
+    deleteUser,
+    getUserCount
 }

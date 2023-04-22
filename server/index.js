@@ -1,7 +1,11 @@
 const express = require('express');
 const {createServer} = require('http');
 const {Server} = require('socket.io');
-const {addUser,getUser,deleteUser} = require('./users/users');
+const {
+    addUser,
+    getUser,
+    deleteUser,
+    getUserCount} = require('./users/users');
 
 const app = express();
 const httpServer = createServer(app);
@@ -64,6 +68,23 @@ io.on('connection',(socket) => {
         deleteUser(socket.id);
         socket.to(user[1]).emit('disconnected',user);
         socket.disconnect(true);
+    })
+
+    socket.on('getUserCountAlpha',() => {
+        const count = getUserCount('Alpha');
+        socket.emit('user_count_1',count);
+    })
+
+    socket.on('getUserCountBeta',() => {
+        const count = getUserCount('Beta');
+        socket.emit('user_count_2',count);
+
+    })
+    
+    
+    socket.on('getUserCountTetra',() => {
+        const count = getUserCount('Tetra');
+        socket.emit('user_count_3',count);
     })
 
 

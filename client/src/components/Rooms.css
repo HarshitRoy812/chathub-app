@@ -15,7 +15,6 @@
     display : flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     font-family : 'Work Sans',sans-serif;
     cursor: pointer;
     border-radius: 7px;
@@ -36,5 +35,24 @@
 
 .room_navlink {
     text-decoration: none; 
-    padding : 50px;  
+    margin-top: 50px;
+}
+
+.user_count_div {
+    display : flex;
+    flex-direction: row;
+    margin-top: 10px;
+    width : 100%;
+    align-items: center;
+    justify-content: center;
+}
+.user_count {
+    color : #fff;
+    font-size : 12px;
+    font-weight: 300;
+}
+.indicator {
+    color : #8ac926;
+    margin-right: 7px;
+    font-size: 10px;
 }
