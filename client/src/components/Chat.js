@@ -60,9 +60,64 @@ const Chat = () => {
             leftRoomMessage(user);
         })
 
+
+        socket.emit('get_users','Alpha');
+
+        socket.on('users',(users) => {
+
+
+            updateUsers(users);
+    
+        });
+
     },[]);
 
+    const updateUsers = (users) => {
 
+        var usersDiv = document.getElementById('users');
+
+        usersDiv.innerHTML = '';
+    
+            users.forEach(async (user) => {
+    
+                var data;
+                var token = localStorage.getItem('token');
+                try {
+                    data = await axios.post(`http://localhost:${ENDPOINT}/getUserByName`,{
+                        userName : user
+                    },{
+                        headers : {
+                            'Authorization' : `Bearer ${token}`
+                        }
+                    })
+                    
+                }
+                catch (err){
+                    console.log(err);
+                }
+    
+                let p = document.createElement('p');
+                let img = document.createElement('img');
+    
+                img.src = `data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`;
+                img.className = 'users_img';
+    
+                p.className = 'user_name';
+                p.textContent = user;
+    
+                let childDiv = document.createElement('div');
+                childDiv.className = 'room_users_childdiv';
+    
+                childDiv.appendChild(img);
+                childDiv.appendChild(p);
+    
+                usersDiv.appendChild(childDiv);
+            })
+    }
+
+
+
+    
 
     const welcomeMessage = (msg) => {   
         var container = document.getElementById('chat_container');
@@ -247,23 +302,37 @@ const Chat = () => {
 
             </div>
 
-            <div id = 'chat_UI'>
+            <div id = 'chat_sub_main'>
 
-                <div id = 'chat_container'>
+                <div id = 'room_users'>
+                    
+                    <h1> Room Users </h1>
 
+                    <div id = 'users'>
 
+                    </div>
 
                 </div>
-            
 
-                <form onSubmit = {sendMessage}>
-                    <div id = 'chat_utils'>
-                    
-                    <input type = 'text' value = {message} className = 'chat_message' onChange = {(e) => setMessage(e.target.value)} className = 'chat_message' />
-                    <input type = 'submit' className = 'send_message_btn' value = 'Send Message' />
-                
+                <div id = 'chat_UI'>
+
+                    <div id = 'chat_container'>
+
+
+
                     </div>
-                </form>
+
+
+                    <form onSubmit = {sendMessage}>
+                        <div id = 'chat_utils'>
+                        
+                        <input type = 'text' value = {message} className = 'chat_message' onChange = {(e) => setMessage(e.target.value)} className = 'chat_message' />
+                        <input type = 'submit' className = 'send_message_btn' value = 'Send Message' />
+
+                        </div>
+                    </form>
+
+                </div>
 
             </div>  
 

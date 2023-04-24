@@ -48,6 +48,38 @@
     text-decoration: none;
     color : #fff;
 }
+
+#chat_sub_main {
+    display : flex;
+    flex-direction: row;
+    width : 100vw;
+    min-height: 200px;
+    margin-top: 70px;
+}
+
+
+#room_users {
+    display : flex;
+    flex-direction: column;
+    width : 350px;
+    min-height : 250px;
+    background : transparent;
+    margin-left : 70px;
+    background : rgba(114, 9, 183,0.6);
+    backdrop-filter : saturate(180%);
+    padding : 6px;
+}
+#room_users h1 {
+    font-family : 'Work Sans',sans-serif;
+    color : #fff;
+    font-size : 17px;
+    align-self: center;
+    font-weight: 400;
+    letter-spacing: -0.6px;
+    margin-top : 6px;
+    text-transform: uppercase;
+}
+
 #chat_UI {
     display : flex;
     flex-direction : column;
@@ -242,4 +274,39 @@
 .welcome_message,.disconnected_message {
     animation-name : slideUp;
     animation-duration: 0.3s;
+}
+#users {
+    display : flex;
+    flex-direction: column;
+    margin : 30px;
+}
+.user_name {
+    color : #fff;
+    font-family: 'Work Sans',sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+.users_img {
+    height : 60px;
+    width : 60px;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+.room_users_childdiv {
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top : 7px;
+    padding : 6px;
+    background-color: #3c096c;
+    padding-top : 15px;
+    padding-bottom : 15px;
+}
+.room_users_childdiv p {
+    margin-left : 12px;
+    font-size: 21px;
+    align-self: flex-end;
+    margin-bottom : 15px;
 }

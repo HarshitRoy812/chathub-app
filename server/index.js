@@ -6,7 +6,8 @@ const {
     getUser,
     deleteUser,
     getUserCount,
-    getUserStatus} = require('./users/users');
+    getUserStatus,
+    getUsers} = require('./users/users');
 
 const app = express();
 const httpServer = createServer(app);
@@ -50,6 +51,8 @@ io.on('connection',(socket) => {
     socket.on('user_joined',(msg) => {
         addUser(socket.id,msg);
         socket.to(msg[1]).emit('user_joined',msg[0] + " has joined the chat");
+        const users = getUsers(msg[1]);
+        socket.to(msg[1]).emit('users',users);
     })
 
     socket.on('send_message',(msg) => {
@@ -92,6 +95,11 @@ io.on('connection',(socket) => {
         const isOnline = getUserStatus(name);
 
         socket.emit('user_status',isOnline);
+    })
+    socket.on('get_users',(room) => {
+
+        const users = getUsers(room);
+        socket.emit('users',users);
     })
 
 

@@ -40,10 +40,27 @@ const getUserStatus = (name) => {
 }
 
 
+const getUsers = (room) => {
+
+ 
+    let userNames = [];
+
+    Object.keys(users).forEach((ele) => {
+        if (users[ele][1] == room){
+    
+            userNames.push(users[ele][0]);
+        }
+    })
+    
+    return userNames;
+    
+}
+
 module.exports = {
     addUser,
     getUser,
     deleteUser,
     getUserCount,
-    getUserStatus
+    getUserStatus,
+    getUsers
 }

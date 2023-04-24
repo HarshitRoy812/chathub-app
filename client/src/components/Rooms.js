@@ -63,7 +63,7 @@ const Rooms = (props) => {
             </div>
 
             <div className = 'room'>
-                <NavLink to = {`/chat?room=Tetra&name=${props.name}`} className = 'room_navlink'> <h1> Join Room 3 </h1> </NavLink>
+                <NavLink to = {`/chat?room=Tetra&name=${props.name}`} className = 'room_navlink'> <h1> Join Room Tetra </h1> </NavLink>
 
                 {
                     userCount3 >= 0
