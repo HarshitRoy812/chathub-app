@@ -162,8 +162,14 @@ const addFriend = async (req,res) => {
 
     const userID = req.user.userID;
 
-    
-    const updatedData = await User.findOneAndUpdate({_id : userID},{friends : [...friends,friendData]});
+    let userFriends;
+
+    const user = await User.findOne({_id : userID});
+
+    userFriends = user.friends;
+    userFriends.push(friendData);
+
+    const updatedData = await User.findOneAndUpdate({_id : userID},{friends : userFriends});
 
     if (updatedData){
         return res.status(201).json({msg : 'Friend added'});

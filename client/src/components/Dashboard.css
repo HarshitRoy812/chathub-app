@@ -75,3 +75,12 @@
     flex-direction: row;
     height : 60vh;
 }
+
+#status {
+    color : #fff;
+    font-family: 'Work Sans',sans-serif;
+    position : absolute;
+    bottom : 50px;
+    left : 140px;
+    font-size: 12px;
+}

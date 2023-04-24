@@ -5,7 +5,8 @@ const {
     addUser,
     getUser,
     deleteUser,
-    getUserCount} = require('./users/users');
+    getUserCount,
+    getUserStatus} = require('./users/users');
 
 const app = express();
 const httpServer = createServer(app);
@@ -85,6 +86,12 @@ io.on('connection',(socket) => {
     socket.on('getUserCountTetra',() => {
         const count = getUserCount('Tetra');
         socket.emit('user_count_3',count);
+    })
+
+    socket.on('get_status',(name) => {
+        const isOnline = getUserStatus(name);
+
+        socket.emit('user_status',isOnline);
     })
 
 

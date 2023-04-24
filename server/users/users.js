@@ -24,10 +24,26 @@ const getUserCount = (room) => {
     return userCount;
 }
 
+const getUserStatus = (name) => {
+
+    let isOnline = false;
+
+    Object.keys(users).forEach((ele) => {
+        
+        if (users[ele][0] == name){
+            isOnline = true;
+        }
+    })
+
+    return isOnline;
+
+}
+
 
 module.exports = {
     addUser,
     getUser,
     deleteUser,
-    getUserCount
+    getUserCount,
+    getUserStatus
 }

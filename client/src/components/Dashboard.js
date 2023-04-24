@@ -58,6 +58,9 @@ const Dashboard = () => {
                     <h1 id = 'name'> {data.name} </h1> 
 
                     <p id = 'joined'> Joined {data.joinedAt} </p>
+
+                    <p id = 'status'> <i class="fa-sharp fa-solid fa-circle indicator"></i>Online</p>
+                    
             
                 </div>
 

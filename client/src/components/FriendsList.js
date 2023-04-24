@@ -2,8 +2,14 @@ import React, {useState,useEffect} from 'react';
 import './FriendsList.css';
 import axios from 'axios';
 import { Buffer } from 'buffer';
+import {nanoid} from 'nanoid';
+const io = require('socket.io-client');
+
 
 function FriendsList() {
+
+    var socket;
+    const ENDPOINT = 3001;
 
     const [friend,setFriend] = useState(null);
     const [friendsList,setFriendsList] = useState([]);
@@ -67,7 +73,6 @@ function FriendsList() {
 
 
     }
-  
 
     const displayFriendsList = async () => {
 
@@ -94,9 +99,11 @@ function FriendsList() {
                         }
                     })
     
-                    return <div className = 'friend_div' key = {1}>
+                    return <div id = 'friend_div' key = {nanoid()}>
                         <img className = 'friends_list_img' src = {`data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`}/> 
-                        <h1> {data.data.msg.name} </h1>
+                        <div className = 'friend_sub_div'>
+                            <h1> {data.data.msg.name} </h1>
+                        </div>
                     </div>
                 })
             ))
@@ -107,10 +114,51 @@ function FriendsList() {
         }
 
     }
+
+
+    const displayFriendsStatus =  () => {
+
+        var divs = document.querySelectorAll('#friend_div');
+
+        for (let i = 0; i < divs.length; i++){
+            const name = divs[i].innerText;
+
+            socket.emit('get_status',name);
+
+            socket.on('user_status',(status) => {
+
+                let p = document.createElement('p');
+                p.className = 'friend_status';
+                var subDiv = divs[i].getElementsByClassName('friend_sub_div');
+                subDiv[0].appendChild(p);
+
+                if (status){
+                    p.innerHTML = '<i class="fa-sharp fa-solid fa-circle indicator"></i>Online';
+                }
+                else {
+                    p.innerHTML = '<i class="fa-sharp fa-solid fa-circle indicator" id = "red"></i>Offline';
+                }
+
+                
+            })
+            
+
+        }
+        
+    }
     
 
     useEffect(() => {
+
+        socket = io(`http://localhost:${ENDPOINT}`);
+
         displayFriendsList();
+
+        setTimeout(() => {
+            displayFriendsStatus();
+        },1000)
+
+        
     },[]);
     
 
@@ -129,13 +177,15 @@ function FriendsList() {
             <div className = 'searched_friend'>
                 <img id = 'friend_img' src = {`data:image/jpeg;base64,${Buffer.from(friend.profilePic.data).toString('base64')}`}/>
                 <label> {friend.name} </label>
-                <input type = 'button' onClick = {addFriend} className = 'add_friend_btn' value = 'Add'/>
+                <input type = 'button' onClick = {addFriend} className = 'add_friend_btn' value = '+'/>
             </div>
         }
 
         <div className = 'friends_list'>
             {
-                friendsList   
+                <>
+                    {friendsList}
+                </>   
             }
             {
                 !friendsList 
