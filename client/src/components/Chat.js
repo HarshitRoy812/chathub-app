@@ -79,6 +79,8 @@ const Chat = () => {
                 img_src = reader.result;
             }
 
+
+
             var container = document.getElementById('chat_container');
 
             var div = document.createElement('div');
@@ -129,8 +131,18 @@ const Chat = () => {
             img_msg.src = img_src;
             img_msg.className = 'img_msg';
 
+            var a = document.createElement('a');
+            a.href = img_src;
+            a.download = 'image.png';
+
+            var button = document.createElement('button');
+            button.className = 'img_download_btn';
+            button.innerHTML = '<i class="fa-solid fa-download"></i>';
+            a.appendChild(button);
+
             firstDiv.appendChild(img);
             firstDiv.appendChild(img_msg);
+            firstDiv.appendChild(a);
             firstDiv.appendChild(cur_time);
 
             div.appendChild(firstDiv);
@@ -275,6 +287,8 @@ const Chat = () => {
         div.appendChild(secondDiv);
 
         container.appendChild(div);
+
+        container.scrollTo(0,container.offsetHeight);
     }
 
     const postMessage = async (msg,user,time) => {
