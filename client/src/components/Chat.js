@@ -20,7 +20,6 @@ const Chat = () => {
     const [name,setName] = useState('');
     const [room,setRoom] = useState('');
     const [message,setMessage] = useState('');
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -64,11 +63,81 @@ const Chat = () => {
         socket.emit('get_users','Alpha');
 
         socket.on('users',(users) => {
-
-
             updateUsers(users);
-    
         });
+
+
+        socket.on('receive_pic',async (msg,user,time) => {
+            
+            var img_src;
+
+            const blob = new Blob([msg.body],{type : msg.type})
+
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+                img_src = reader.result;
+            }
+
+            var container = document.getElementById('chat_container');
+
+            var div = document.createElement('div');
+            div.className = 'textMessage';
+
+            var textMessage = document.createElement('p');
+            textMessage.textContent = msg;
+            textMessage.className = 'message';
+
+            var user_name = document.createElement('p');
+            user_name.textContent = user[0];
+            user_name.className = 'message_username';
+
+            var cur_time = document.createElement('p');
+            cur_time.textContent = time;
+            cur_time.className = 'time';
+
+            var firstDiv = document.createElement('div');
+            firstDiv.className = 'first_div_self';
+            
+
+            var secondDiv = document.createElement('div');
+            secondDiv.className = 'second_div';
+            secondDiv.appendChild(user_name);
+
+            const token = localStorage.getItem('token');
+
+            var data;
+            try {
+                data = await axios.post('http://localhost:3001/getUserByName',{
+                userName : user[0]
+                },{
+                    headers : {
+                        'Authorization' : `Bearer ${token}`
+                    }
+                })
+            }
+            catch (error){
+                console.log(error);
+            }
+
+            var img = document.createElement('img');
+            img.src = `data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`;
+            img.className = 'img_alt';
+
+            var img_msg = document.createElement('img');
+
+            img_msg.src = img_src;
+            img_msg.className = 'img_msg';
+
+            firstDiv.appendChild(img);
+            firstDiv.appendChild(img_msg);
+            firstDiv.appendChild(cur_time);
+
+            div.appendChild(firstDiv);
+            div.appendChild(secondDiv);
+            container.appendChild(div);
+
+        })
 
     },[]);
 
@@ -288,7 +357,87 @@ const Chat = () => {
         navigate('/dashboard');
     }
 
+
     
+    const sendPic = async (e) => {
+
+        const picMessage = {
+            type : 'file',
+            body : e.target.files[0],
+            mimeType : e.target.files[0].type,
+            fileName : e.target.files[0].name
+        }
+
+        socket.emit('send_pic',picMessage);
+
+        var img_msg = document.createElement('img');
+        img_msg.className = 'img_msg';
+
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onloadend = () => {
+            img_msg.src = reader.result;
+        }
+        
+        var container = document.getElementById('chat_container');
+
+        var div = document.createElement('div');
+        div.className = 'textMessageSelf';
+
+        var textMessage = document.createElement('p');
+        textMessage.textContent = message;
+
+        var user_name = document.createElement('p');
+        user_name.textContent = 'You';
+        user_name.className = 'message_username_self';
+
+        const date = new Date();
+
+        let time = date.getHours() + ":" + date.getMinutes();
+
+        var cur_time = document.createElement('p');
+        cur_time.textContent = time;
+        cur_time.className = 'time_self';
+
+        var firstDiv = document.createElement('div');
+        firstDiv.className = 'first_div_self';
+        firstDiv.appendChild(cur_time);
+        firstDiv.appendChild(img_msg);
+
+        var secondDiv = document.createElement('div');
+        secondDiv.className = 'second_div_self';
+        secondDiv.appendChild(user_name);
+
+        const token = localStorage.getItem('token');
+
+        var data;
+        try {
+            data = await axios.post('http://localhost:3001/getUserByName',{
+            userName : name
+            },{
+                headers : {
+                    'Authorization' : `Bearer ${token}`
+                }
+            })
+        }
+        catch (error){
+            console.log(error);
+        }
+
+
+        var img = document.createElement('img');
+        img.src = `data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`;
+        img.className = 'img';
+       
+        firstDiv.appendChild(img);
+
+        div.appendChild(firstDiv);
+        div.appendChild(secondDiv);
+
+        container.appendChild(div);
+
+
+    }
 
     return (
         
@@ -303,9 +452,10 @@ const Chat = () => {
             </div>
 
             <div id = 'chat_sub_main'>
+                
 
                 <div id = 'room_users'>
-                    
+
                     <h1> Room Users </h1>
 
                     <div id = 'users'>
@@ -326,7 +476,10 @@ const Chat = () => {
                     <form onSubmit = {sendMessage}>
                         <div id = 'chat_utils'>
                         
-                        <input type = 'text' value = {message} className = 'chat_message' onChange = {(e) => setMessage(e.target.value)} className = 'chat_message' />
+                        <input type = 'file' accept = 'image/png, image/jpeg' id = 'message_pic' onChange = {(e) => sendPic(e)} className = 'chat_file'/>
+                        <label for = 'message_pic' className = 'message_pic_label'> <i class="fa-solid fa-camera"></i> </label>
+
+                        <input type = 'text' value = {message} className = 'chat_message' onChange = {(e) => setMessage(e.target.value)}/>
                         <input type = 'submit' className = 'send_message_btn' value = 'Send Message' />
 
                         </div>

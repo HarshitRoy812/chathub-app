@@ -52,7 +52,7 @@
 #chat_sub_main {
     display : flex;
     flex-direction: row;
-    width : 100vw;
+    width : 90%;
     min-height: 200px;
     margin-top: 70px;
 }
@@ -91,7 +91,7 @@
 #chat_container {
     display : flex;
     flex-direction: column;
-    background-color: #fefae0;
+    background-color: #edf2f4;
     height : 50vh;
     width : 50vw;
     border-radius: 3px;
@@ -115,7 +115,8 @@
     background : #f1faee;
     border : none;
     outline : none;
-    border-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
     text-indent: 5px;
     font-family: 'Work Sans',sans-serif;
     font-size: 15px;
@@ -303,10 +304,52 @@
     background-color: #3c096c;
     padding-top : 15px;
     padding-bottom : 15px;
+    animation-name : popIn;
+    animation-duration: 0.3s;
+}
+
+@keyframes popIn {
+    from {
+        opacity : 0;
+    }
+    to {
+        opacity : 1;
+    }
 }
 .room_users_childdiv p {
     margin-left : 12px;
     font-size: 21px;
     align-self: flex-end;
     margin-bottom : 15px;
+}
+.chat_file {
+    display : none;
+}
+.message_pic_label {
+    background-color: #6930c3;
+    width : 50px;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.message_pic_label:hover {
+    background-color: #5b1ebe;
+}
+.message_pic_label i {
+    position : absolute;
+    top : 50%;
+    left : 50%;
+    transform : translate(-50%,-50%);
+    color : #fff;
+}
+
+
+.img_msg {
+    width : 150px;
+    height : 150px;
+    border-radius: 3px;
+    box-shadow : 0 3px 5px rgba(0,0,0,0.3);
 }

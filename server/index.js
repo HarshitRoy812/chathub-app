@@ -67,6 +67,19 @@ io.on('connection',(socket) => {
         socket.to(user[1]).emit('receive_message',msg,user,time);
     })
 
+    socket.on('send_pic',(msg) => {
+
+        const date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        let time = hours + ":" + minutes;
+
+        const user = getUser(socket.id);
+        socket.to(user[1]).emit('receive_pic',msg,user,time);
+
+    })
+
     socket.on('clientDisconnect',() => {
         const user = getUser(socket.id);
         deleteUser(socket.id);
