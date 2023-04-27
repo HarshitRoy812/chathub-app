@@ -22,6 +22,8 @@ const Chat = () => {
     const [message,setMessage] = useState('');
     const navigate = useNavigate();
 
+
+
     useEffect(() => {
 
         socket = io(`http://localhost:${ENDPOINT}`);
@@ -342,9 +344,6 @@ const Chat = () => {
         firstDiv.appendChild(textMessage);
         firstDiv.appendChild(cur_time);
         
-        
-        
-
         div.appendChild(firstDiv);
         div.appendChild(secondDiv);
         container.appendChild(div);

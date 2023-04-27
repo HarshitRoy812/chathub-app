@@ -152,3 +152,28 @@
 #red {
     color : #fb5607;
 }
+
+
+@media screen and (max-width : 850px){
+    .friends_component {
+        margin : auto;
+        margin-top: 50px;
+    }
+    .friends_list {
+        width : 100%;
+        margin : auto;
+        margin-top: 30px;
+        flex-direction: row;
+        min-height : 20vh;
+        flex-wrap: wrap;
+    }
+    #friend_div {
+        height : 100px;
+    }
+}
+
+@media screen and (max-width : 400px){
+    .friends_component {
+        margin-top : 70px;
+    }
+}

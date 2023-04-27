@@ -84,3 +84,61 @@
     left : 140px;
     font-size: 12px;
 }
+
+@media screen and (max-width : 1024px){
+    .header_profile {
+        margin-top : 20px;
+    }
+    #joined {
+        bottom : 45px;
+    }
+    #status {
+        bottom : 30px;
+    }
+
+}
+
+@media screen and (max-width : 850px){
+    #joined {
+        font-size : 10px;
+        left : 100px;   
+    }
+    #name {
+        font-size: 32px;
+    }
+    #profile_pic {
+        height : 80px;
+        width : 80px;
+    }
+    #status {
+        left : 100px;
+    }
+    .header_profile{
+        width : 40vw;
+    }
+    #main {
+        flex-direction: column;
+    }
+}
+
+
+@media screen and (max-width : 400px){  
+    #log_out_btn {
+        width : 80px;
+        height: 30px;
+        font-size: 8px;
+    }
+    .header_profile {
+        width : 60vw;
+        margin : auto;
+        margin-left: 50px;
+    }
+}
+@media screen and (max-width : 300px) {
+    .header_div {
+        width : 400px;
+    }
+    .header_profile{
+        width : 70vw;
+    }
+}

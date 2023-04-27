@@ -56,3 +56,28 @@
     margin-right: 7px;
     font-size: 10px;
 }
+
+@media screen and (max-width : 1060px){
+    #rooms {
+        height : 60vh;
+    }
+}
+@media screen and (max-width : 850px){
+    #rooms {
+        width : 100%;
+        margin-left: 0px;
+    }
+    .room {
+        margin : 20px;
+    }
+}
+@media screen and (max-width : 400px) {
+    #rooms{
+        margin-left : 50px;
+    }
+}
+@media screen and (max-width : 300px) {
+    #rooms {
+        margin-left: 150px;
+    }
+}
