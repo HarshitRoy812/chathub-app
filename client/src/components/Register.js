@@ -32,7 +32,7 @@ const Register = () => {
         try {
             const response = await axios({
                 method : "POST",
-                url : "http://localhost:3001/register",
+                url : "https://chathub-server.onrender.com",
                 data : formData,
                 headers : {"Content-Type" : "multipart/form-data"}
             });
