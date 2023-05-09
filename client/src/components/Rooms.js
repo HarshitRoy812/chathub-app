@@ -14,7 +14,7 @@ const Rooms = (props) => {
     const [userCount3,setUserCount3] = useState(0);
 
     useEffect(() => {
-        socket = io(`http://localhost:${ENDPOINT}`);
+        socket = io('https://chathub-server.onrender.com');
 
         socket.emit('getUserCountAlpha');
         socket.emit('getUserCountBeta');

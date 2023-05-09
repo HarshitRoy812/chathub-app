@@ -26,7 +26,7 @@ const Chat = () => {
 
     useEffect(() => {
 
-        socket = io(`http://localhost:${ENDPOINT}`);
+        socket = io('https://chathub-server.onrender.com');
 
 
 
