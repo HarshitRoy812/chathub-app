@@ -110,7 +110,7 @@
         width: 60vw;
     }
     .password_reset {
-        height : 12vh;
+        height : 12vh;  
         flex-direction: column;
     }
     .create_account {

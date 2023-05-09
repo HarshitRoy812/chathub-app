@@ -1,5 +1,6 @@
 #register_form {
     width : 40vw;
+    min-height: 30vh;
 }
 .form_row {
     display : flex;
@@ -28,8 +29,8 @@
 }
 
 .register_navlink {
-    position : relative;
-    top : 60px;
+    position: relative;
+    top : 5px;
     color : #000000;
 }
 
@@ -39,4 +40,41 @@
     margin-top : 36px;
     margin-left : 30px;
     font-size : 17px;
+}
+
+
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width : 1100px) {
+    #register_form {
+        margin-top : 50px;
+        margin-left : 0px;
+        width : 50vw;
+    }
+    .form_heading {
+        font-size: 17px;
+    }
+    .register_navlink {
+        top : 5px;
+        font-size: 12px;    
+    }
+    .register_submit_btn {
+        font-size: 12px;
+    }
+    .file_label {
+        font-size: 12px;
+    }
+}
+@media screen and (max-width : 660px) {
+    #register_form {
+        width: 70vw;
+    }
+    .file_label {
+        font-size: 12px;
+    }
+    .form_label {
+        font-size: 14px;
+    }
+    
 }

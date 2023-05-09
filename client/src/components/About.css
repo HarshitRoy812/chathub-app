@@ -52,3 +52,36 @@
     font-size : 15px;
     line-height: 1.2rem;
 }
+
+/* MEDIA QUERIES */
+@media screen and (max-width : 1200px){
+    .about_para, .about_sub_para p{
+        font-size: 12px;
+    }
+    .about_sub_para h3 {
+        font-size: 17px;
+    }
+}
+@media screen and (max-width : 1000px){
+    .about_content {
+        flex-direction: column;
+        padding : 25px;
+    }
+    .about_para {
+        right : 0px;
+    }
+    .about_img,.img_2 {
+        display: none;
+    }
+    .about_heading {
+        margin-right: 0px;
+    }
+}
+@media screen and (max-width : 660px){
+    .about_para,.about_sub_para {
+        font-size: 10px;
+    }
+    .about_heading {
+        font-size: 21px;
+    }
+}
