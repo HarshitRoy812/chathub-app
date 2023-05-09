@@ -107,7 +107,7 @@ io.on('connection',(socket) => {
     socket.on('get_status',(name) => {
         const isOnline = getUserStatus(name);
 
-        socket.emit('user_status',isOnline);
+        socket.emit('user_status',isOnline,name);
     })
     socket.on('get_users',(room) => {
 

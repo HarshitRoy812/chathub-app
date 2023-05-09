@@ -78,7 +78,7 @@ const Dashboard = () => {
                 <>
                     <Rooms name = {data.name}/>
 
-                    <FriendsList />
+                    <FriendsList name = {data.name} />
                 </>
             }
         </div>

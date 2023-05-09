@@ -6,7 +6,7 @@ import {nanoid} from 'nanoid';
 const io = require('socket.io-client');
 
 
-function FriendsList() {
+function FriendsList(props) {
 
     var socket;
     const ENDPOINT = 3001;
@@ -19,6 +19,11 @@ function FriendsList() {
         e.preventDefault();
 
         const name = document.getElementById('friend_name');
+
+        if (props.name == name.value){
+            alert('Cannot add friend to self');
+            return;
+        }
         
         if (name.value == ''){
             alert('Please enter the name of the friend');
@@ -48,11 +53,10 @@ function FriendsList() {
     }
 
 
-    const addFriend = async (e) => {
+    const addFriend = async (e) => {     
 
         e.preventDefault();
-
-        
+ 
         const token = localStorage.getItem('token');
 
         
@@ -113,30 +117,35 @@ function FriendsList() {
             console.log(error);
         }
 
+        displayFriendsStatus();
     }
 
 
-    const displayFriendsStatus =  () => {
+    const displayFriendsStatus = () => {
+        
 
         var divs = document.querySelectorAll('#friend_div');
 
         for (let i = 0; i < divs.length; i++){
             const name = divs[i].innerText;
 
+
             socket.emit('get_status',name);
+    
+            socket.on('user_status',(status,user_name) => {
+                if (user_name == name){
 
-            socket.on('user_status',(status) => {
+                    let p = document.createElement('p');
+                    p.className = 'friend_status';
+                    var subDiv = divs[i].getElementsByClassName('friend_sub_div');
+                    subDiv[0].appendChild(p);
 
-                let p = document.createElement('p');
-                p.className = 'friend_status';
-                var subDiv = divs[i].getElementsByClassName('friend_sub_div');
-                subDiv[0].appendChild(p);
-
-                if (status){
-                    p.innerHTML = '<i class="fa-sharp fa-solid fa-circle indicator"></i>Online';
+                    if (status){
+                        p.innerHTML = '<i class="fa-sharp fa-solid fa-circle indicator"></i>Online';
+                    }
+                    else {
+                        p.innerHTML = '<i class="fa-sharp fa-solid fa-circle indicator" id = "red"></i>Offline';
                 }
-                else {
-                    p.innerHTML = '<i class="fa-sharp fa-solid fa-circle indicator" id = "red"></i>Offline';
                 }
 
                 
@@ -153,10 +162,6 @@ function FriendsList() {
         socket = io(`http://localhost:${ENDPOINT}`);
 
         displayFriendsList();
-
-        setTimeout(() => {
-            displayFriendsStatus();
-        },1000)
 
         
     },[]);
