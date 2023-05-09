@@ -1,6 +1,11 @@
 const express = require('express');
 const {createServer} = require('http');
 const {Server} = require('socket.io');
+var bodyParser = require('body-parser');
+const helmet = require('helmet');
+const rateLimiter = require('express-rate-limit');
+
+
 const {
     addUser,
     getUser,
@@ -16,27 +21,24 @@ const io = new Server(httpServer,{
         origin : '*'
     }
 });
-
-const port = 3001;
-
-
-
 const cors = require('cors');
 const routes = require('./routes/routes');
 const connectDB = require('./db/connection');
 
-var bodyParser = require('body-parser');
-app.use(bodyParser.json({limit : '50mb'}));
-app.use(bodyParser.urlencoded({limit : '50mb',extended : true,parameterLimit : 50000}));
-
+const port = 3001;
 
 require('dotenv').config();
 
-
-
 app.use(express.json());
-
 app.use(cors());
+app.use(helmet());
+app.set('trust proxy',1);
+app.use(rateLimiter({
+  windowMs : 15 * 60 * 1000,
+max : 100
+}));
+app.use(bodyParser.json({limit : '50mb'}));
+app.use(bodyParser.urlencoded({limit : '50mb',extended : true,parameterLimit : 50000}));
 app.use('/',routes);
 
 
