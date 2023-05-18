@@ -106,7 +106,7 @@
 .chat_message {
     flex : 0.96;
     height : 100%;
-    background : #b9faf8;
+    background : #ffffff;
     border : none;
     outline : none;
     border-top-right-radius: 3px;
@@ -346,7 +346,7 @@
     box-shadow : 0 3px 5px rgba(0,0,0,0.3);
 }
 
-.img_download_btn {
+.file_download_btn {
     width : 30px;
     height : 30px;
     background : #ffb703;
@@ -356,8 +356,24 @@
     cursor: pointer;
     transition : 0.3s ease-in-out;
 }
-.img_download_btn:hover {
+.file_download_btn:hover {
     background : #e8a807;
+}
+
+.video {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-color: #fca311;
+}
+.video:hover {
+    background-color: #e9950d;
+}
+
+.video_msg {
+    width : 150px;
+    height : 150px;
+    box-shadow : 0 3px 5px rgba(0,0,0,0.5);
+    border-radius: 3px;
 }
 
 /* Responsive Design */

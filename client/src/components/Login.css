@@ -105,6 +105,14 @@
         font-size: 12px;
     }
 }
+
+
+.password_toggle {
+    margin-left : 6px;
+    color : #8d99ae;
+    cursor: pointer;
+}
+
 @media screen and (max-width : 660px) {
     .login_form {
         width: 60vw;

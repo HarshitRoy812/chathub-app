@@ -3,7 +3,6 @@ import './Rooms.css';
 import {NavLink} from 'react-router-dom';
 
 const io = require('socket.io-client');
-const ENDPOINT = 3001;
 var socket;
 
 

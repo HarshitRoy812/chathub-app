@@ -9,7 +9,6 @@ import axios from 'axios';
 
 const io = require('socket.io-client');
 
-const ENDPOINT = 3001;
 var socket;
 
 
@@ -68,6 +67,77 @@ const Chat = () => {
             updateUsers(users);
         });
 
+        socket.on('receive_video',async (msg,user,time) => {
+
+            const blob = new Blob([msg],{type : 'video/mp4'});
+
+            const videoURL = URL.createObjectURL(blob);
+
+            const videoElement = document.createElement('video');
+            videoElement.src = videoURL;
+            videoElement.controls = true;
+            videoElement.className = 'video_msg';
+
+            var container = document.getElementById('chat_container');
+
+            var div = document.createElement('div');
+            div.className = 'textMessage';
+
+            var user_name = document.createElement('p');
+            user_name.textContent = user[0];
+            user_name.className = 'message_username';
+
+            var cur_time = document.createElement('p');
+            cur_time.textContent = time;
+            cur_time.className = 'time';
+
+            var firstDiv = document.createElement('div');
+            firstDiv.className = 'first_div_self';
+
+            var secondDiv = document.createElement('div');
+            secondDiv.className = 'second_div';
+            secondDiv.appendChild(user_name);
+
+            const token = localStorage.getItem('token');
+
+            var data;
+            try {
+                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                userName : user[0]
+                },{
+                    headers : {
+                        'Authorization' : `Bearer ${token}`
+                    }
+                })
+            }
+            catch (error){
+                console.log(error);
+            }
+
+            var img = document.createElement('img');
+            img.src = `data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`;
+            img.className = 'img_alt';
+
+            var a = document.createElement('a');
+            a.href = videoURL;
+            a.download = 'video.mp4';
+
+            var button = document.createElement('button');
+            button.className = 'file_download_btn';
+            button.innerHTML = '<i class="fa-solid fa-download"></i>';
+            a.appendChild(button);
+
+            firstDiv.appendChild(img);
+            firstDiv.appendChild(videoElement);
+            firstDiv.appendChild(a);
+            firstDiv.appendChild(cur_time);
+
+            div.appendChild(firstDiv);
+            div.appendChild(secondDiv);
+
+            container.appendChild(div);
+            
+        })
 
         socket.on('receive_pic',async (msg,user,time) => {
             
@@ -128,6 +198,7 @@ const Chat = () => {
             img.src = `data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`;
             img.className = 'img_alt';
 
+
             var img_msg = document.createElement('img');
 
             img_msg.src = img_src;
@@ -166,7 +237,7 @@ const Chat = () => {
                 var data;
                 var token = localStorage.getItem('token');
                 try {
-                    data = await axios.post(`https://chathub-server.onrender.com/getUserByName`,{
+                    data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
                         userName : user
                     },{
                         headers : {
@@ -452,6 +523,92 @@ const Chat = () => {
 
     }
 
+    const sendVideo = (e) => {
+        
+        const file = e.target.files[0];
+        
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        
+        var videoData;
+
+        reader.onload = async (e) => {
+            videoData = e.target.result;
+            const blob = new Blob([videoData],{type : 'video/mp4'});
+
+            const videoURL = URL.createObjectURL(blob);
+
+            const videoElement = document.createElement('video');
+            videoElement.src = videoURL;
+            videoElement.controls = true;
+            videoElement.className = 'video_msg';
+
+            var container = document.getElementById('chat_container');
+
+            var div = document.createElement('div');
+            div.className = 'textMessageSelf';
+
+
+            var user_name = document.createElement('p');
+            user_name.textContent = 'You';
+            user_name.className = 'message_username_self';
+
+            const date = new Date();
+
+            let time = date.getHours() + ":" + date.getMinutes();
+
+            var cur_time = document.createElement('p');
+            cur_time.textContent = time;
+            cur_time.className = 'time_self';
+
+            var firstDiv = document.createElement('div');
+            firstDiv.className = 'first_div_self';
+            firstDiv.appendChild(cur_time);
+            firstDiv.appendChild(videoElement);
+
+            var secondDiv = document.createElement('div');
+            secondDiv.className = 'second_div_self';
+            secondDiv.appendChild(user_name);
+
+            const token = localStorage.getItem('token');
+
+            var data;
+            try {
+                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                userName : name
+                },{
+                    headers : {
+                        'Authorization' : `Bearer ${token}`
+                    }
+                })
+            }
+            catch (error){
+                console.log(error);
+            }
+
+
+            var img = document.createElement('img');
+            img.src = `data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`;
+            img.className = 'img';
+
+            firstDiv.appendChild(img);
+
+            div.appendChild(firstDiv);
+            div.appendChild(secondDiv);
+
+            container.appendChild(div);
+
+            socket.emit('send_video',videoData);
+        }
+
+        
+
+        
+
+
+        
+    }
+
     return (
         
         <div id = 'chat_main'>
@@ -489,14 +646,24 @@ const Chat = () => {
                     <form onSubmit = {sendMessage}>
                         <div id = 'chat_utils'>
                         
+                        {/* File handler for sending pics */}
                         <input type = 'file' accept = 'image/png, image/jpeg' id = 'message_pic' onChange = {(e) => sendPic(e)} className = 'chat_file'/>
                         <label for = 'message_pic' className = 'message_pic_label'> <i class="fa-solid fa-camera"></i> </label>
 
+                        {/* File handler for sending videos */}                
+                        <input type = 'file' accept = 'video/mp4, video/webm, video/ogg' className = 'chat_file' id = 'message_video' onChange = {(e) => sendVideo(e)} />
+                        <label for = 'message_video' className = 'message_pic_label video'> <i class="fa-solid fa-video"></i> </label>
+
+                        
                         <input type = 'text' value = {message} className = 'chat_message' onChange = {(e) => setMessage(e.target.value)}/>
                         <input type = 'submit' className = 'send_message_btn' value = 'Send Message' />
 
                         </div>
                     </form>
+
+                    <div id = 'video_div'>
+
+                    </div>
 
                 </div>
 

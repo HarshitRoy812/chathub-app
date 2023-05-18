@@ -9,8 +9,7 @@ const io = require('socket.io-client');
 function FriendsList(props) {
 
     var socket;
-    const ENDPOINT = 3001;
-
+    
     const [friend,setFriend] = useState(null);
     const [friendsList,setFriendsList] = useState([]);
 
@@ -33,7 +32,7 @@ function FriendsList(props) {
         try {
             const token = localStorage.getItem('token');
 
-            const data = await axios.post('https://chathub-server.onrender.com/searchFriend',{
+            const data = await axios.post('http::/localhost:3001/searchFriend',{
                 name : name.value
             },
             {
@@ -61,7 +60,7 @@ function FriendsList(props) {
 
         
         try {
-            const data = await axios.put('https://chathub-server.onrender.com/friend',{
+            const data = await axios.put('http::/localhost:3001/friend',{
                 friendData : friend
             },{
                 headers : {
@@ -95,7 +94,7 @@ function FriendsList(props) {
 
                     const token = localStorage.getItem('token');
 
-                    const data = await axios.post('https://chathub-server.onrender.com/getUser',{
+                    const data = await axios.post('http::/localhost:3001/getUser',{
                         userID : ele
                     },{
                         headers : {

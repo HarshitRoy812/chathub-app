@@ -1,8 +1,7 @@
 import React, {useEffect,useState} from 'react';
 import './Login.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -11,6 +10,7 @@ const Login = () => {
 
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const [passwordVisible,togglePassword] = useState(false);
 
     useEffect(() => {
         localStorage.removeItem('token');
@@ -49,6 +49,22 @@ const Login = () => {
 
     
 
+    const showPassword = () => {
+        togglePassword(true);
+
+        const password = document.getElementById('password');
+        password.type = 'text';
+
+    }
+    
+    const hidePassword = () => {
+        togglePassword(false);
+
+        const password = document.getElementById('password');
+        password.type = 'password';
+    }
+    
+
     return (
         <div className = 'login_form'>
             <form>
@@ -61,12 +77,16 @@ const Login = () => {
 
                 <div className = 'form_group'>
                     <label className = 'form_label'> Password </label> <br />
-                    <input type = 'password' value = {password} className = 'form_input' onChange = {(event) => setPassword(event.target.value)}/>
+                    <input type = 'password' id = 'password' value = {password} className = 'form_input' onChange = {(event) => setPassword(event.target.value)} />
+
+                    {
+                        !passwordVisible ? <i className="fa-solid fa-eye-slash password_toggle" onClick = {showPassword}></i> : <i className="fa-solid fa-eye password_toggle" onClick = {hidePassword}></i>
+                    }
+
                 </div>
 
                 <div className = 'form_group'>
                     <input type = 'submit' onClick = {loginToAccount} className = 'form_submit_btn' value = 'Login' onChange = {(event) => setPassword(event.target.value)}/>
-
                     <p id = 'login_error_msg'> </p>
                 </div>
 

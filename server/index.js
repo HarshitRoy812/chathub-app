@@ -19,11 +19,13 @@ const httpServer = createServer(app);
 const io = new Server(httpServer,{
     cors : {
         origin : '*'
-    }
+    },
+    maxHttpBufferSize : 1e7
 });
 const cors = require('cors');
 const routes = require('./routes/routes');
 const connectDB = require('./db/connection');
+
 
 const port = 3001;
 
@@ -115,6 +117,18 @@ io.on('connection',(socket) => {
 
         const users = getUsers(room);
         socket.emit('users',users);
+    })
+    
+    socket.on('send_video',(msg) => {
+        
+        const date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        let time = hours + ":" + minutes;
+
+        const user = getUser(socket.id);
+        socket.to(user[1]).emit('receive_video',msg,user,time);
     })
 
 

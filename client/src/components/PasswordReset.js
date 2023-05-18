@@ -47,7 +47,9 @@ const PasswordReset = () => {
         }
 
 
-        emailjs.sendForm('service_dao0xr9','template_qb55s4p',form.current,'GgrFbc0tijRCUczZw')
+        const publicKey = process.env.PUBLIC_KEY;
+
+        emailjs.sendForm(publicKey,'template_qb55s4p',form.current,'GgrFbc0tijRCUczZw')
         setValidation(true);
         setOTPui(false);
         setChangePassword(false);

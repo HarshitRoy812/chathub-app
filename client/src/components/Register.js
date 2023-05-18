@@ -15,6 +15,10 @@ const Register = () => {
     const [file,setFile] = useState(null);
 
     const [data,setData] = useState([]);
+
+
+
+    const [passwordVisible,togglePassword] = useState(false);
     
 
     const handleRegisterSubmit = async (e) => {
@@ -48,6 +52,20 @@ const Register = () => {
         setPassword('');
     }
 
+    const showPassword = () => {
+        togglePassword(true);
+
+        const password = document.getElementById('password');
+        password.type = 'text';
+
+    }
+    
+    const hidePassword = () => {
+        togglePassword(false);
+
+        const password = document.getElementById('password');
+        password.type = 'password';
+    }
 
     return (
         <div className = 'registration_form' id = 'register_form'>
@@ -69,7 +87,11 @@ const Register = () => {
                 <div className = 'form_row'>
                     <div className = 'form_group'>
                         <label className = 'form_label'> Password </label> <br />
-                        <input type = 'password' value = {password} onChange = {(event) => setPassword(event.target.value)} className = 'form_input' />
+                        <input type = 'password' value = {password} id = 'password' onChange = {(event) => setPassword(event.target.value)} className = 'form_input' />
+                        
+                        {
+                            !passwordVisible ? <i className="fa-solid fa-eye-slash password_toggle" onClick = {showPassword}></i> : <i className="fa-solid fa-eye password_toggle" onClick = {hidePassword}></i>
+                        }
                     </div>
 
                     <div className = 'form_group'>
