@@ -132,6 +132,17 @@ io.on('connection',(socket) => {
         socket.to(user[1]).emit('receive_video',msg,user,time);
     })
 
+    socket.on('send_audio',(msg) => {
+        const date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        let time = hours + ":" + minutes;
+
+        const user = getUser(socket.id);
+        socket.to(user[1]).emit('receive_audio',msg,user,time);
+    })
+
 
 })
 

@@ -24,7 +24,7 @@ const Chat = () => {
 
 
     useEffect(() => {
-
+        
         socket = io('https://chathub-server.onrender.com');
 
 
@@ -52,6 +52,7 @@ const Chat = () => {
             var audio = new Audio(messageSent);
             audio.play();
             postMessage(msg,user,time);
+            
         })
 
         socket.on('disconnected',(user) => {
@@ -124,7 +125,7 @@ const Chat = () => {
 
             var button = document.createElement('button');
             button.className = 'file_download_btn';
-            button.innerHTML = '<i className="fa-solid fa-download"></i>';
+            button.innerHTML = '<i class="fa-solid fa-download"></i>';
             a.appendChild(button);
 
             firstDiv.appendChild(img);
@@ -136,6 +137,7 @@ const Chat = () => {
             div.appendChild(secondDiv);
 
             container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
             
         })
 
@@ -210,7 +212,7 @@ const Chat = () => {
 
             var button = document.createElement('button');
             button.className = 'file_download_btn';
-            button.innerHTML = '<i className="fa-solid fa-download"></i>';
+            button.innerHTML = '<i class="fa-solid fa-download"></i>';
             a.appendChild(button);
 
             firstDiv.appendChild(img);
@@ -221,6 +223,84 @@ const Chat = () => {
             div.appendChild(firstDiv);
             div.appendChild(secondDiv);
             container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+
+        })
+
+        socket.on('receive_audio',async (msg,user,time) => {
+
+            const blob = new Blob([msg],{type : 'audio/,mp3'});
+
+            const objectURL = URL.createObjectURL(blob);
+
+            const audioElement = document.createElement('audio');
+            audioElement.src = objectURL;
+            audioElement.className = 'audio_element';
+            audioElement.controls = true;
+
+            var container = document.getElementById('chat_container');
+
+            var div = document.createElement('div');
+            div.className = 'textMessage';
+
+            var textMessage = document.createElement('p');
+            textMessage.textContent = msg;
+            textMessage.className = 'message';
+
+            var user_name = document.createElement('p');
+            user_name.textContent = user[0];
+            user_name.className = 'message_username';
+
+            var cur_time = document.createElement('p');
+            cur_time.textContent = time;
+            cur_time.className = 'time';
+
+            var firstDiv = document.createElement('div');
+            firstDiv.className = 'first_div_self';
+            
+
+            var secondDiv = document.createElement('div');
+            secondDiv.className = 'second_div';
+            secondDiv.appendChild(user_name);
+
+            const token = localStorage.getItem('token');
+
+            var data;
+            try {
+                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                userName : user[0]
+                },{
+                    headers : {
+                        'Authorization' : `Bearer ${token}`
+                    }
+                })
+            }
+            catch (error){
+                console.log(error);
+            }
+
+            var img = document.createElement('img');
+            img.src = `data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`;
+            img.className = 'img_alt';
+
+            var a = document.createElement('a');
+            a.href = objectURL;
+            a.download = 'audio.mp3';
+
+            var button = document.createElement('button');
+            button.className = 'file_download_btn';
+            button.innerHTML = '<i class="fa-solid fa-download"></i>';
+            a.appendChild(button);
+
+            firstDiv.appendChild(img);
+            firstDiv.appendChild(audioElement);
+            firstDiv.appendChild(a);
+            firstDiv.appendChild(cur_time);
+
+            div.appendChild(firstDiv);
+            div.appendChild(secondDiv);
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
 
         })
 
@@ -284,6 +364,7 @@ const Chat = () => {
 
         div.appendChild(p);
         container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
     }    
 
     const sendMessage = (e) => {
@@ -361,7 +442,7 @@ const Chat = () => {
 
         container.appendChild(div);
 
-        container.scrollTo(0,container.offsetHeight);
+        container.scrollTop = container.scrollHeight;
     }
 
     const postMessage = async (msg,user,time) => {
@@ -418,6 +499,9 @@ const Chat = () => {
         div.appendChild(firstDiv);
         div.appendChild(secondDiv);
         container.appendChild(div);
+
+        
+        container.scrollTop = container.scrollHeight;
     }
 
 
@@ -433,6 +517,7 @@ const Chat = () => {
 
         div.append(p);
         container.append(div);
+        container.scrollTop = container.scrollHeight;
 
     }
 
@@ -452,7 +537,6 @@ const Chat = () => {
             fileName : e.target.files[0].name
         }
 
-        console.log(e.target.files[0].type);
 
         socket.emit('send_pic',picMessage);
 
@@ -521,6 +605,7 @@ const Chat = () => {
         div.appendChild(secondDiv);
 
         container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
 
 
     }
@@ -528,7 +613,6 @@ const Chat = () => {
     const sendVideo = (e) => {
         
         const file = e.target.files[0];
-        console.log(file.type);
         
         const reader = new FileReader();
         reader.readAsArrayBuffer(file);
@@ -601,15 +685,98 @@ const Chat = () => {
 
             container.appendChild(div);
 
+            container.scrollTop = container.scrollHeight;
+
             socket.emit('send_video',videoData);
+        }  
+    }
+
+    const sendAudio = (e) => {
+
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.readAsArrayBuffer(file);
+
+        reader.onload = async () => {
+            const buffer = reader.result;
+            
+
+            socket.emit('send_audio',buffer);
+
+            const blob = new Blob([buffer],{type : 'audio/,mp3'});
+
+            const objectURL = URL.createObjectURL(blob);
+
+            const audioElement = document.createElement('audio');
+
+            audioElement.src = objectURL;
+            audioElement.controls = true;
+            audioElement.className = 'audio_element';
+            
+
+            var container = document.getElementById('chat_container');
+
+            var div = document.createElement('div');
+            div.className = 'textMessageSelf';
+
+
+            var user_name = document.createElement('p');
+            user_name.textContent = 'You';
+            user_name.className = 'message_username_self';
+
+            const date = new Date();
+
+            let time = date.getHours() + ":" + date.getMinutes();
+
+            var cur_time = document.createElement('p');
+            cur_time.textContent = time;
+            cur_time.className = 'time_self';
+
+            var firstDiv = document.createElement('div');
+            firstDiv.className = 'first_div_self';
+            firstDiv.appendChild(cur_time);
+            firstDiv.appendChild(audioElement);
+
+            var secondDiv = document.createElement('div');
+            secondDiv.className = 'second_div_self';
+            secondDiv.appendChild(user_name);
+
+            const token = localStorage.getItem('token');
+
+            var data;
+            try {
+                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                userName : name
+                },{
+                    headers : {
+                        'Authorization' : `Bearer ${token}`
+                    }
+                })
+            }
+            catch (error){
+                console.log(error);
+            }
+
+
+            var img = document.createElement('img');
+            img.src = `data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`;
+            img.className = 'img';
+
+            firstDiv.appendChild(img);
+
+            div.appendChild(firstDiv);
+            div.appendChild(secondDiv);
+
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+
         }
 
-        
+        reader.onerror = (err) => {
+            console.log(err);
+        }
 
-        
-
-
-        
     }
 
     return (
@@ -657,7 +824,9 @@ const Chat = () => {
                         <input type = 'file' accept = 'video/mp4, video/webm, video/ogg' className = 'chat_file' id = 'message_video' onChange = {(e) => sendVideo(e)} />
                         <label htmlFor = 'message_video' className = 'message_pic_label video'> <i className="fa-solid fa-video"></i> </label>
 
-
+                        {/* File handler for sending audios */}
+                        <input type = 'file' accept = 'audio/mp3' className = 'chat_file' id = 'message_audio' onChange = {(e) => sendAudio(e)} />
+                        <label htmlFor = 'message_audio' className = 'message_pic_label audio'> <i class="fa-solid fa-music"></i> </label>
                         
                         <input type = 'text' value = {message} className = 'chat_message' onChange = {(e) => setMessage(e.target.value)}/>
                         <input type = 'submit' className = 'send_message_btn' value = 'Send Message' />
