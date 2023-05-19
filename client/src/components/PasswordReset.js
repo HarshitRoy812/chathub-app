@@ -34,7 +34,7 @@ const PasswordReset = () => {
         
 
         try {
-            const response = await axios.post('http://localhost:3001/verifyEmail',{
+            const response = await axios.post('https://chathub-server.onrender.com/verifyEmail',{
                 email : email
             })
             console.log(response);
@@ -93,7 +93,7 @@ const PasswordReset = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/changePassword',{
+            const response = await axios.post('https://chathub-server.onrender.com/changePassword',{
                 email : email,
                 password : newPassword
             })
