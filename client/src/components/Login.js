@@ -26,7 +26,7 @@ const Login = () => {
         var errorMsg = document.getElementById('login_error_msg');
         
         try {
-            const response = await axios.post('https://chathub-server.onrender.com/login',{
+            const response = await axios.post('http://localhost:3001/login',{
                 email : email,
                 password : password
             })

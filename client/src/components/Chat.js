@@ -25,7 +25,7 @@ const Chat = () => {
 
     useEffect(() => {
 
-        socket = io('https://chathub-server.onrender.com');
+        socket = io('http://localhost:3001');
 
 
 
@@ -102,7 +102,7 @@ const Chat = () => {
 
             var data;
             try {
-                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                data = await axios.post('http://localhost:3001/getUserByName',{
                 userName : user[0]
                 },{
                     headers : {
@@ -124,7 +124,7 @@ const Chat = () => {
 
             var button = document.createElement('button');
             button.className = 'file_download_btn';
-            button.innerHTML = '<i class="fa-solid fa-download"></i>';
+            button.innerHTML = '<i className="fa-solid fa-download"></i>';
             a.appendChild(button);
 
             firstDiv.appendChild(img);
@@ -182,7 +182,7 @@ const Chat = () => {
 
             var data;
             try {
-                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                data = await axios.post('http://localhost:3001/getUserByName',{
                 userName : user[0]
                 },{
                     headers : {
@@ -209,8 +209,8 @@ const Chat = () => {
             a.download = 'image.png';
 
             var button = document.createElement('button');
-            button.className = 'img_download_btn';
-            button.innerHTML = '<i class="fa-solid fa-download"></i>';
+            button.className = 'file_download_btn';
+            button.innerHTML = '<i className="fa-solid fa-download"></i>';
             a.appendChild(button);
 
             firstDiv.appendChild(img);
@@ -224,7 +224,7 @@ const Chat = () => {
 
         })
 
-    },[]);
+    },[searchParams]);
 
     const updateUsers = (users) => {
 
@@ -237,7 +237,7 @@ const Chat = () => {
                 var data;
                 var token = localStorage.getItem('token');
                 try {
-                    data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                    data = await axios.post('http://localhost:3001/getUserByName',{
                         userName : user
                     },{
                         headers : {
@@ -290,7 +290,7 @@ const Chat = () => {
 
         e.preventDefault();
 
-        if (message == ''){
+        if (message === ''){
             alert('Please enter a message to send !');
             return;
         }
@@ -337,7 +337,7 @@ const Chat = () => {
 
         var data;
         try {
-            data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+            data = await axios.post('http://localhost:3001/getUserByName',{
             userName : name
             },{
                 headers : {
@@ -395,7 +395,7 @@ const Chat = () => {
 
         var data;
         try {
-            data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+            data = await axios.post('http://localhost:3001/getUserByName',{
             userName : user[0]
             },{
                 headers : {
@@ -452,6 +452,8 @@ const Chat = () => {
             fileName : e.target.files[0].name
         }
 
+        console.log(e.target.files[0].type);
+
         socket.emit('send_pic',picMessage);
 
         var img_msg = document.createElement('img');
@@ -496,7 +498,7 @@ const Chat = () => {
 
         var data;
         try {
-            data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+            data = await axios.post('http://localhost:3001/getUserByName',{
             userName : name
             },{
                 headers : {
@@ -526,6 +528,7 @@ const Chat = () => {
     const sendVideo = (e) => {
         
         const file = e.target.files[0];
+        console.log(file.type);
         
         const reader = new FileReader();
         reader.readAsArrayBuffer(file);
@@ -574,7 +577,7 @@ const Chat = () => {
 
             var data;
             try {
-                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                data = await axios.post('http://localhost:3001/getUserByName',{
                 userName : name
                 },{
                     headers : {
@@ -617,7 +620,7 @@ const Chat = () => {
 
                 <h1> Welcome {name}, you have joined Room {room} !</h1>
 
-                <button id = 'leaveroom_btn' onClick = {leaveRoom}> Leave Room <i class="fa-solid fa-right-from-bracket"></i> </button>
+                <button id = 'leaveroom_btn' onClick = {leaveRoom}> Leave Room <i className="fa-solid fa-right-from-bracket"></i> </button>
 
             </div>
 
@@ -648,11 +651,12 @@ const Chat = () => {
                         
                         {/* File handler for sending pics */}
                         <input type = 'file' accept = 'image/png, image/jpeg' id = 'message_pic' onChange = {(e) => sendPic(e)} className = 'chat_file'/>
-                        <label for = 'message_pic' className = 'message_pic_label'> <i class="fa-solid fa-camera"></i> </label>
+                        <label htmlFor = 'message_pic' className = 'message_pic_label'> <i className="fa-solid fa-camera"></i> </label>
 
                         {/* File handler for sending videos */}                
                         <input type = 'file' accept = 'video/mp4, video/webm, video/ogg' className = 'chat_file' id = 'message_video' onChange = {(e) => sendVideo(e)} />
-                        <label for = 'message_video' className = 'message_pic_label video'> <i class="fa-solid fa-video"></i> </label>
+                        <label htmlFor = 'message_video' className = 'message_pic_label video'> <i className="fa-solid fa-video"></i> </label>
+
 
                         
                         <input type = 'text' value = {message} className = 'chat_message' onChange = {(e) => setMessage(e.target.value)}/>

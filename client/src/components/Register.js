@@ -36,7 +36,7 @@ const Register = () => {
         try {
             const response = await axios({
                 method : "POST",
-                url : "https://chathub-server.onrender.com/register",
+                url : "http://localhost:3001/register",
                 data : formData,
                 headers : {"Content-Type" : "multipart/form-data"}
             });
@@ -98,7 +98,7 @@ const Register = () => {
 
                         <label className = 'form_label'> Upload Your Pic </label> <br /> <br />
                         <input type = 'file' id = 'pic' name = 'profile_pic' onChange = {(e) => setFile(e.target.files[0])} className = 'file_input' />
-                        <label for = 'pic' className = 'file_label'> Choose file </label>
+                        <label htmlFor = 'pic' className = 'file_label'> Choose file </label>
         
                     </div>
                     

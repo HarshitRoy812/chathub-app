@@ -21,7 +21,7 @@ const Dashboard = () => {
             const token = localStorage.getItem('token');
 
             try {
-                response = await axios.get('https://chathub-server.onrender.com/dashboard',{
+                response = await axios.get('http://localhost:3001/dashboard',{
                     headers : {
                         'Authorization' : `Bearer ${token}`
                     }
@@ -59,7 +59,7 @@ const Dashboard = () => {
 
                     <p id = 'joined'> Joined {data.joinedAt} </p>
 
-                    <p id = 'status'> <i class="fa-sharp fa-solid fa-circle indicator"></i>Online</p>
+                    <p id = 'status'> <i className="fa-sharp fa-solid fa-circle indicator"></i>Online</p>
                     
             
                 </div>

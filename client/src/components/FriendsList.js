@@ -19,12 +19,12 @@ function FriendsList(props) {
 
         const name = document.getElementById('friend_name');
 
-        if (props.name == name.value){
+        if (props.name === name.value){
             alert('Cannot add friend to self');
             return;
         }
         
-        if (name.value == ''){
+        if (name.value === ''){
             alert('Please enter the name of the friend');
             return;
         }
@@ -60,7 +60,7 @@ function FriendsList(props) {
 
         
         try {
-            const data = await axios.put('http::/localhost:3001/friend',{
+            await axios.put('http::/localhost:3001/friend',{
                 friendData : friend
             },{
                 headers : {
@@ -82,7 +82,7 @@ function FriendsList(props) {
         const token = localStorage.getItem('token');
 
         try {
-            const data = await axios.get('https://chathub-server.onrender.com/friend',{
+            const data = await axios.get('http://localhost:3001/friend',{
                 headers : {
                     'Authorization' : `Bearer ${token}`
                 }
@@ -94,7 +94,7 @@ function FriendsList(props) {
 
                     const token = localStorage.getItem('token');
 
-                    const data = await axios.post('http::/localhost:3001/getUser',{
+                    const data = await axios.post('http://localhost:3001/getUser',{
                         userID : ele
                     },{
                         headers : {
@@ -103,7 +103,7 @@ function FriendsList(props) {
                     })
     
                     return <div id = 'friend_div' key = {nanoid()}>
-                        <img className = 'friends_list_img' src = {`data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`}/> 
+                        <img className = 'friends_list_img' alt = 'Friends List' src = {`data:image/jpeg;base64,${Buffer.from(data.data.msg.profilePic.data).toString('base64')}`}/> 
                         <div className = 'friend_sub_div'>
                             <h1> {data.data.msg.name} </h1>
                         </div>
@@ -132,7 +132,7 @@ function FriendsList(props) {
             socket.emit('get_status',name);
     
             socket.on('user_status',(status,user_name) => {
-                if (user_name == name){
+                if (user_name === name){
 
                     let p = document.createElement('p');
                     p.className = 'friend_status';
@@ -140,10 +140,10 @@ function FriendsList(props) {
                     subDiv[0].appendChild(p);
 
                     if (status){
-                        p.innerHTML = '<i class="fa-sharp fa-solid fa-circle indicator"></i>Online';
+                        p.innerHTML = '<i className="fa-sharp fa-solid fa-circle indicator"></i>Online';
                     }
                     else {
-                        p.innerHTML = '<i class="fa-sharp fa-solid fa-circle indicator" id = "red"></i>Offline';
+                        p.innerHTML = '<i className="fa-sharp fa-solid fa-circle indicator" id = "red"></i>Offline';
                 }
                 }
 
@@ -158,7 +158,7 @@ function FriendsList(props) {
 
     useEffect(() => {
 
-        socket = io('https://chathub-server.onrender.com');
+        socket = io('http://localhost:3001');
 
         displayFriendsList();
 
@@ -179,7 +179,7 @@ function FriendsList(props) {
             friend
             &&
             <div className = 'searched_friend'>
-                <img id = 'friend_img' src = {`data:image/jpeg;base64,${Buffer.from(friend.profilePic.data).toString('base64')}`}/>
+                <img id = 'friend_img' alt = 'Friend' src = {`data:image/jpeg;base64,${Buffer.from(friend.profilePic.data).toString('base64')}`}/>
                 <label> {friend.name} </label>
                 <input type = 'button' onClick = {addFriend} className = 'add_friend_btn' value = '+'/>
             </div>

@@ -43,7 +43,7 @@ const About = () => {
                 </ul>
 
                 <div id = 'burger_menu' onClick = {displayBurgerContent}>
-                        <i class="fa-solid fa-bars" id = 'burger_bar'></i>
+                        <i className="fa-solid fa-bars" id = 'burger_bar'></i>
                 </div>
                 
                 <div id = 'burger_menu_content'>
@@ -68,7 +68,7 @@ const About = () => {
                     <img src = './images/about_logo.svg' className = 'about_img' alt = 'team work pic'/>
                     <img src = './images/about_logo_2.svg' className = 'about_img img_2' alt = 'team work pic'/>
 
-                    <p className = 'about_para'>
+                    <div className = 'about_para'>
                         We are a team of three members that hope to fulfil the demands of the users 
                         in order to create highly secured , quality-looking UI for chatting with their friends
                         and families. We have been working hard to keep the privacy of the users safe from others
@@ -103,7 +103,7 @@ const About = () => {
                                 a teenager to a grown up adult man, they would not have any problem using the application. 
                             </p>
                         </div>
-                    </p>
+                    </div>
 
                 </div>
 

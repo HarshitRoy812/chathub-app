@@ -40,12 +40,11 @@ const PageLayout = () => {
                 </ul>
 
                 <div id = 'burger_menu' onClick = {displayBurgerContent}>
-                        <i class="fa-solid fa-bars" id = 'burger_bar'></i>
+                        <i className="fa-solid fa-bars" id = 'burger_bar'></i>
                 </div>
                 
                 <div id = 'burger_menu_content'>
 
-                    {/* <i class="fa-solid fa-xmark menu_close"></i> */}
                     
                     <NavLink to = '/' className = 'nav_link burger'> Home </NavLink>
                     <NavLink to = '/about' className = 'nav_link burger'> About </NavLink>

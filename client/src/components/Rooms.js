@@ -13,7 +13,7 @@ const Rooms = (props) => {
     const [userCount3,setUserCount3] = useState(0);
 
     useEffect(() => {
-        socket = io('https://chathub-server.onrender.com');
+        socket = io('http://localhost:3001');
 
         socket.emit('getUserCountAlpha');
         socket.emit('getUserCountBeta');
@@ -42,7 +42,7 @@ const Rooms = (props) => {
                     userCount1 >= 0
                     &&
                     <div className = 'user_count_div'>
-                        <i class="fa-sharp fa-solid fa-circle indicator"></i>
+                        <i className="fa-sharp fa-solid fa-circle indicator"></i>
                         <p className = 'user_count'> {userCount1} users are online </p>
                     </div>
                 }
@@ -55,7 +55,7 @@ const Rooms = (props) => {
                     userCount2 >= 0
                     &&
                     <div className = 'user_count_div'>
-                        <i class="fa-sharp fa-solid fa-circle indicator"></i>
+                        <i className="fa-sharp fa-solid fa-circle indicator"></i>
                         <p className = 'user_count'> {userCount2} users are online </p>
                     </div>
                 }
@@ -68,7 +68,7 @@ const Rooms = (props) => {
                     userCount3 >= 0
                     &&
                     <div className = 'user_count_div'>
-                        <i class="fa-sharp fa-solid fa-circle indicator"></i>
+                        <i className="fa-sharp fa-solid fa-circle indicator"></i>
                         <p className = 'user_count'> {userCount3} users are online </p>
                     </div>
                 }
