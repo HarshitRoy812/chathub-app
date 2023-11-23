@@ -32,7 +32,7 @@ function FriendsList(props) {
         try {
             const token = localStorage.getItem('token');
 
-            const data = await axios.post('http://localhost:3001/searchFriend',{
+            const data = await axios.post('https://chathub-server.onrender.com/searchFriend',{
                 name : name.value
             },
             {
@@ -60,7 +60,7 @@ function FriendsList(props) {
 
         
         try {
-            await axios.put('http://localhost:3001/friend',{
+            await axios.put('https://chathub-server.onrender.com/friend',{
                 friendData : friend
             },{
                 headers : {
@@ -82,7 +82,7 @@ function FriendsList(props) {
         const token = localStorage.getItem('token');
 
         try {
-            const data = await axios.get('http://localhost:3001/friend',{
+            const data = await axios.get('https://chathub-server.onrender.com/friend',{
                 headers : {
                     'Authorization' : `Bearer ${token}`
                 }
@@ -94,7 +94,7 @@ function FriendsList(props) {
 
                     const token = localStorage.getItem('token');
 
-                    const data = await axios.post('http://localhost:3001/getUser',{
+                    const data = await axios.post('https://chathub-server.onrender.com/getUser',{
                         userID : ele
                     },{
                         headers : {
@@ -158,7 +158,7 @@ function FriendsList(props) {
 
     useEffect(() => {
 
-        socket = io('http://localhost:3001');
+        socket = io('https://chathub-server.onrender.com');
 
         displayFriendsList();
 
