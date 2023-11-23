@@ -3,6 +3,7 @@ import './FriendsList.css';
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import {nanoid} from 'nanoid';
+import { log } from 'console';
 const io = require('socket.io-client');
 
 
@@ -42,6 +43,7 @@ function FriendsList(props) {
             })
             
             setFriend(data.data.msg);
+            console.log(data.data.msg);
             
 
         }
