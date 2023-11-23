@@ -34,13 +34,13 @@ max : 100
 }));
 app.use(bodyParser.json({limit : '80mb'}));
 app.use(bodyParser.urlencoded({limit : '80mb',extended : true,parameterLimit : 50000}));
-app.use('/',routes);
+
 
 
 
 const routes = require('./routes/routes');
 const connectDB = require('./db/connection');
-
+app.use('/',routes);
 
 const port = 3001;
 
