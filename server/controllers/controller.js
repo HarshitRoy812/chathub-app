@@ -8,6 +8,7 @@ const {
 } = require('../validation/validateSchema');
 const verifyPassword = require('../validation/verifyPassword');
 const jwt = require('jsonwebtoken');
+const { log } = require('console');
 require('dotenv').config();
 
 const loginDetails = async (req,res) => {
@@ -157,8 +158,8 @@ const searchFriend = async (req,res) => {
 }
 
 const addFriend = async (req,res) => {
-    
-    const {friendData} = req.body;
+    console.log(req.headers['content-length']);
+    const {friendData} = req.body;  
 
     const userID = req.user.userID;
 
