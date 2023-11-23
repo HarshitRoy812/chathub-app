@@ -22,7 +22,7 @@ const io = new Server(httpServer,{
     },
     maxHttpBufferSize : 1e7
 });
-
+const cors = require('cors');
 // Security features
 app.use(express.json());
 app.use(cors());
@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({limit : '80mb',extended : true,parameterLimit : 5
 app.use('/',routes);
 
 
-const cors = require('cors');
+
 const routes = require('./routes/routes');
 const connectDB = require('./db/connection');
 
