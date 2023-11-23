@@ -411,6 +411,32 @@
     border-radius: 8px;
 }
 
+.translate_button {
+    color : #0366d6;
+    text-decoration: none;
+    position: relative;
+    transition : color 0.3s;
+}
+
+.translate_button::after {
+    content : "";
+    position: absolute;
+    bottom : -2px;
+    left : 0;
+    width : 100%;
+    height : 2px;
+    background-color: #0336d6;
+    transform : scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s;
+}
+.translate_button:hover {
+    color : #1a4fc9;
+}
+.translate_button:hover::after {
+    transform : scaleX(1);
+}
+
 /* Responsive Design */
 @media screen and (max-width : 1128px){
     #room_users {

@@ -22,14 +22,6 @@ const io = new Server(httpServer,{
     },
     maxHttpBufferSize : 1e7
 });
-const cors = require('cors');
-const routes = require('./routes/routes');
-const connectDB = require('./db/connection');
-
-
-const port = 3001;
-
-require('dotenv').config();
 
 // Security features
 app.use(express.json());
@@ -40,9 +32,21 @@ app.use(rateLimiter({
   windowMs : 15 * 60 * 1000,
 max : 100
 }));
-app.use(bodyParser.json({limit : '50mb'}));
-app.use(bodyParser.urlencoded({limit : '50mb',extended : true,parameterLimit : 50000}));
+app.use(bodyParser.json({limit : '80mb'}));
+app.use(bodyParser.urlencoded({limit : '80mb',extended : true,parameterLimit : 50000}));
 app.use('/',routes);
+
+
+const cors = require('cors');
+const routes = require('./routes/routes');
+const connectDB = require('./db/connection');
+
+
+const port = 3001;
+
+require('dotenv').config();
+
+
 
 
 

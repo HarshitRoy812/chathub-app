@@ -5,7 +5,7 @@ import userJoined from './sound_effects/user_joined.mp3';
 import messageSent from './sound_effects/message_sent.mp3';
 import userDisconnected from './sound_effects/user_disconnected.mp3';
 import { Buffer } from 'buffer';
-import axios from 'axios';
+import axios from 'axios';why
 
 const io = require('socket.io-client');
 
@@ -25,7 +25,7 @@ const Chat = () => {
 
     useEffect(() => {
         
-        socket = io('https://chathub-server.onrender.com');
+        socket = io('http://localhost:3001');
 
 
 
@@ -103,7 +103,7 @@ const Chat = () => {
 
             var data;
             try {
-                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                data = await axios.post('http://localhost:3001/getUserByName',{
                 userName : user[0]
                 },{
                     headers : {
@@ -184,7 +184,7 @@ const Chat = () => {
 
             var data;
             try {
-                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                data = await axios.post('http://localhost:3001/getUserByName',{
                 userName : user[0]
                 },{
                     headers : {
@@ -267,7 +267,7 @@ const Chat = () => {
 
             var data;
             try {
-                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                data = await axios.post('http://localhost:3001/getUserByName',{
                 userName : user[0]
                 },{
                     headers : {
@@ -317,7 +317,7 @@ const Chat = () => {
                 var data;
                 var token = localStorage.getItem('token');
                 try {
-                    data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                    data = await axios.post('http://localhost:3001/getUserByName',{
                         userName : user
                     },{
                         headers : {
@@ -418,7 +418,7 @@ const Chat = () => {
 
         var data;
         try {
-            data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+            data = await axios.post('http://localhost:3001/getUserByName',{
             userName : name
             },{
                 headers : {
@@ -476,7 +476,7 @@ const Chat = () => {
 
         var data;
         try {
-            data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+            data = await axios.post('http://localhost:3001/getUserByName',{
             userName : user[0]
             },{
                 headers : {
@@ -582,7 +582,7 @@ const Chat = () => {
 
         var data;
         try {
-            data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+            data = await axios.post('http://localhost:3001/getUserByName',{
             userName : name
             },{
                 headers : {
@@ -661,7 +661,7 @@ const Chat = () => {
 
             var data;
             try {
-                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                data = await axios.post('http://localhost:3001/getUserByName',{
                 userName : name
                 },{
                     headers : {
@@ -746,7 +746,7 @@ const Chat = () => {
 
             var data;
             try {
-                data = await axios.post('https://chathub-server.onrender.com/getUserByName',{
+                data = await axios.post('http://localhost:3001/getUserByName',{
                 userName : name
                 },{
                     headers : {
@@ -778,6 +778,8 @@ const Chat = () => {
         }
 
     }
+
+
 
     return (
         

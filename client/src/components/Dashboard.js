@@ -21,7 +21,7 @@ const Dashboard = () => {
             const token = localStorage.getItem('token');
 
             try {
-                response = await axios.get('https://chathub-server.onrender.com/dashboard',{
+                response = await axios.get('http://localhost:3001/dashboard',{
                     headers : {
                         'Authorization' : `Bearer ${token}`
                     }
