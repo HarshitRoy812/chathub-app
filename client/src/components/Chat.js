@@ -5,7 +5,7 @@ import userJoined from './sound_effects/user_joined.mp3';
 import messageSent from './sound_effects/message_sent.mp3';
 import userDisconnected from './sound_effects/user_disconnected.mp3';
 import { Buffer } from 'buffer';
-import axios from 'axios';why
+import axios from 'axios';
 
 const io = require('socket.io-client');
 
