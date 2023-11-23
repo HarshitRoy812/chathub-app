@@ -32,9 +32,9 @@ app.use(rateLimiter({
   windowMs : 15 * 60 * 1000,
 max : 100
 }));
-app.use(bodyParser.json({limit : '80mb'}));
-app.use(bodyParser.urlencoded({limit : '80mb',extended : true,parameterLimit : 50000}));
 
+app.use(bodyParser.urlencoded({limit : '500mb',extended : true,parameterLimit : 100000}));
+app.use(bodyParser.json());
 
 
 
