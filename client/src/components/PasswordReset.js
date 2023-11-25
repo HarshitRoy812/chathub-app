@@ -25,6 +25,8 @@ const PasswordReset = () => {
         
         e.preventDefault();
 
+    
+
         var emailErr = document.getElementById('email_err');
 
         if (email === ''){
@@ -44,11 +46,8 @@ const PasswordReset = () => {
                 return;
             }
         }
-
-
-        const publicKey = process.env.PUBLIC_KEY;
-
-        emailjs.sendForm(publicKey,'template_qb55s4p',form.current,'IJhHKLFm_UnaF1H9c')
+        
+        emailjs.sendForm('service_xp1dti4','template_qb55s4p',form.current,'IJhHKLFm_UnaF1H9c')
         setValidation(true);
         setOTPui(false);
         setChangePassword(false);
