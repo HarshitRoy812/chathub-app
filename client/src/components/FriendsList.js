@@ -43,7 +43,6 @@ function FriendsList(props) {
             })
             
             setFriend(data.data.msg);
-            console.log(data.data.msg);
             
 
         }
@@ -67,9 +66,7 @@ function FriendsList(props) {
             },{
                 headers : {
                     'Authorization' : `Bearer ${token}`
-                },
-                maxContentLength : 100000000,
-                maxBodyLength : 100000000
+                }
             })
 
             displayFriendsList();

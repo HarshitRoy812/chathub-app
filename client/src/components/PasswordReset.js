@@ -37,7 +37,6 @@ const PasswordReset = () => {
             const response = await axios.post('https://chathub-server.onrender.com/verifyEmail',{
                 email : email
             })
-            console.log(response);
         }
         catch (error){
             if (error.response.status === 404){
@@ -49,7 +48,7 @@ const PasswordReset = () => {
 
         const publicKey = process.env.PUBLIC_KEY;
 
-        emailjs.sendForm(publicKey,'template_qb55s4p',form.current,'GgrFbc0tijRCUczZw')
+        emailjs.sendForm(publicKey,'template_qb55s4p',form.current,'IJhHKLFm_UnaF1H9c')
         setValidation(true);
         setOTPui(false);
         setChangePassword(false);

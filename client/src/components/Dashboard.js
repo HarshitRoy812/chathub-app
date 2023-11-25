@@ -9,49 +9,45 @@ import Rooms from './Rooms';
 
 const Dashboard = () => {
 
-    const [data,setData] = useState([]);
-    const [componentLoaded,setComponentState] = useState(false);
+    var data = {};
+    const [componentLoaded, setComponentLoaded] = useState(false);
     const navigate = useNavigate();
-    var response;
 
     useEffect(() => {
 
-        const fetchData = async () => {
+        const fetchData = () => {
 
             const token = localStorage.getItem('token');
 
-            try {
-                response = await axios.get('https://chathub-server.onrender.com/dashboard',{
-                    headers : {
-                        'Authorization' : `Bearer ${token}`
-                    }
-                });
-                
-                setData(response.data.msg);
-                setComponentState(true);
-                
-            }
-            catch (error){
+            axios.get('https://chathub-server.onrender.com/dashboard', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            })
+            .then((response) => {
+                data = response.data.msg;
+
+            })
+            .catch((error) => {
                 navigate('/');
-            }
+            });
         }
         
         fetchData();
 
-    },[]);
+    });
 
 
     return (
         <>
 
         {
-            componentLoaded && 
+            Object.keys(data).length > 0 && 
 
-
+            
             <div className = 'header_div'>
 
                 <div className = 'header_profile'>
-
 
                     <img id = 'profile_pic' src = {`data:image/jpeg;base64,${Buffer.from(data.profilePic.data).toString('base64')}`}/>
 
@@ -73,7 +69,7 @@ const Dashboard = () => {
 
         <div id = 'main'>
             {
-                componentLoaded
+                Object.keys(data).length > 0
                 &&
                 <>
                     <Rooms name = {data.name}/>
