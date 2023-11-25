@@ -56,7 +56,7 @@ function FriendsList(props) {
     const addFriend = async (e) => {     
 
         e.preventDefault();
- 
+        
         const token = localStorage.getItem('token');
 
         

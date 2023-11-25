@@ -9,7 +9,7 @@ import Rooms from './Rooms';
 
 const Dashboard = () => {
 
-    var data = {};
+    const [data,setData] = useState([]);
     const [componentLoaded, setComponentLoaded] = useState(false);
     const navigate = useNavigate();
 
@@ -25,7 +25,8 @@ const Dashboard = () => {
             },
             })
             .then((response) => {
-                data = response.data.msg;
+                setData(response.data.msg);
+                setComponentLoaded(true);
 
             })
             .catch((error) => {
@@ -35,14 +36,14 @@ const Dashboard = () => {
         
         fetchData();
 
-    });
+    },[]);
 
 
     return (
         <>
 
         {
-            Object.keys(data).length > 0 && 
+            componentLoaded && 
 
             
             <div className = 'header_div'>
@@ -69,7 +70,7 @@ const Dashboard = () => {
 
         <div id = 'main'>
             {
-                Object.keys(data).length > 0
+                componentLoaded
                 &&
                 <>
                     <Rooms name = {data.name}/>
